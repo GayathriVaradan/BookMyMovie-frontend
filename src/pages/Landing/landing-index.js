@@ -9,8 +9,21 @@ import styled from "styled-components";
 import { useNavigate } from "@reach/router";
 import AppContext from "../../store/context";
 
-const Wrapper = styled.section`
- background: url("https://catalog.cinema-api.com/cf/images/ncg-images/2c8feb2fd91f45ffbff6f5374acc08cf.jpg?width=800&amp;version=702AA8E2086C72A31809104200990765") center top / cover no-repeat;'
+const Button = styled.button`
+  cursor: pointer;
+  background: transparent;
+  font-size: 16px;
+  border-radius: 3px;
+  color: palevioletred;
+  border: 2px solid palevioletred;
+  margin: 0 1em;
+  padding: 0.25em 1em;
+  transition: 0.5s all ease-out;
+
+  &:hover {
+    background-color: palevioletred;
+    color: white;
+  }
 `;
 const LandingPage = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -31,27 +44,24 @@ const LandingPage = () => {
   return (
     <div>
       <div>
-        <Wrapper>
-          <Carousel center="true" autoPlay width="350px">
-            {movies.map((eachMovie) => (
-              <div>
-                <img alt="" src={eachMovie.posterurl} />
-                <button
-                  type="button"
-                  label="button"
-                  value={eachMovie._id}
-                  onClick={() => {
-                    dispatch({ type: "setSelectedMovie", data: eachMovie });
-                    navigate("./selectedMovie");
-                  }}
-                >
-                  Book Tickets
-                </button>
-                <p className="legend">{eachMovie.title}</p>
-              </div>
-            ))}
-          </Carousel>
-        </Wrapper>
+        <Carousel center="true" autoPlay width="350px">
+          {movies.map((eachMovie) => (
+            <div>
+              <Button
+                type="button"
+                label="button"
+                value={eachMovie._id}
+                onClick={() => {
+                  dispatch({ type: "setSelectedMovie", data: eachMovie });
+                  navigate("./selectedMovie");
+                }}
+              >
+                {eachMovie.title}
+              </Button>
+              <img alt="" src={eachMovie.posterurl} />
+            </div>
+          ))}
+        </Carousel>
       </div>
     </div>
   );

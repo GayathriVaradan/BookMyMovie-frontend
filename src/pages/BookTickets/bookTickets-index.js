@@ -24,16 +24,33 @@ function BookTickets() {
   // Declare a new state variable, which we'll call "count"
   const [count, setCount] = useState(0);
   const { state, dispatch } = useContext(AppContext);
-  const { selectedTheater, selectedMovie } = state;
+  const {
+    selectedTheater,
+    selectedMovie,
+    // numberOfTickets,
+  } = state;
   const navigate = useNavigate();
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    if (count === 0) {
+      setCount(0);
+    } else {
+      setCount(count - 1);
+    }
+  };
+
   return (
     <div>
-      <div>Number Of tickets :{count}</div>
-      <div>For the Movie : {selectedMovie}</div>
-      <div>For the theater : {selectedTheater}</div>
-      <Button type="button" onClick={() => setCount(count + 1)}>
-        Click me
-      </Button>
+      <div>
+        Number Of tickets :<Button onClick={decrement}> -</Button> {count}
+        <Button onClick={increment}>+</Button>
+      </div>
+      <div>For the Movie : {selectedMovie.title}</div>
+      <div>For the theater : {selectedTheater.theaterName}</div>
+
       <Button
         type="button"
         onClick={() => {
@@ -41,7 +58,7 @@ function BookTickets() {
           navigate("./seatLayout");
         }}
       >
-        Book Tickets
+        Select seats
       </Button>
     </div>
   );

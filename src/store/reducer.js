@@ -25,6 +25,11 @@ const reducer = (state, action) => {
         ...state,
         numberOfTickets: action.data,
       };
+    case "setSelectedSeats":
+      return {
+        ...state,
+        selectedSeats: action.data,
+      };
     default:
       return state;
   }
