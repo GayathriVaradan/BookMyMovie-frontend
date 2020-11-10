@@ -1,9 +1,11 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "@reach/router";
 import AppContext from "../../store/context";
+import "./SeatLayout.css";
 
 const Button = styled.button`
   cursor: pointer;
@@ -25,45 +27,49 @@ const Button = styled.button`
 function SeatLayout() {
   // Declare a new state variable, which we'll call "count"
   const { state, dispatch } = useContext(AppContext);
-  const { selectedMovie, selectedTheater, numberOfTickets } = state;
+  const n = 26;
+  let i;
+  const seats = [];
+  const {
+    selectedMovie,
+    selectedTheater,
+    // datesAndTheaters,
+    selectedShow,
+    numberOfTickets,
+  } = state;
 
   const navigate = useNavigate();
-
+  function displaySeats() {
+    for (i = 1; i < n; i++) {
+      seats.push(i);
+    }
+  }
   return (
     <div>
-      <div>For the Movie : {selectedMovie.title}</div>
-      <div>For the theater : {selectedTheater.theaterName}</div>
-      <img alt="" src={selectedMovie.posterurl} />
-      Number of tickets: {numberOfTickets}
-      {selectedTheater.seats.map((seats) => (
+      <div> Movie : {selectedMovie.title}</div>
+      <div> Theater : {selectedTheater.theaterName}</div>
+      <div>Show: {selectedShow.show}</div>
+      <div> Number of tickets: {numberOfTickets}</div>
+      {displaySeats()}
+      {seats.map((item) => (
         <div>
-          <form>
-            <label>
-              {seats.seatNumber}
-              <input
-                type="checkbox"
-                onClick={() => {
-                  console.log(seats.seatNumber);
-                }}
-              />
-            </label>
-          </form>
+          <table>
+            <tr>
+              <td>
+                <input id="check" type="checkbox" />
+              </td>
+            </tr>
+            <tr>
+              <td>{item}</td>
+            </tr>
+          </table>
         </div>
       ))}
-      {/* <div style={{ marginTop: "100px" }}>
-        <SeatPicker
-          rows={rows}
-          maxReservableSeats={3}
-          alpha
-          visible
-          selectedByDefault
-        />
-      </div> */}
       <Button
         type="button"
         onClick={() => {
           dispatch({ type: "setSelectedSeats", data: selectedMovie });
-          navigate("./whichTheater");
+          navigate("./");
         }}
       >
         Continue

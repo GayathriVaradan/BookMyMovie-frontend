@@ -18,8 +18,27 @@ const state = {
     },
   ],
   selectedMovie: {},
-  theaters: [],
+  datesAndTheaters: [
+    {
+      date: "",
+      title: "",
+      theater: [
+        {
+          theaterName: "",
+          shows: [
+            {
+              show: "",
+              time: "",
+              seatsUnavaible: "",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  selectedDate: {},
   selectedTheater: [],
+  selectedShow: {},
   numberOfTickets: {},
   selectedSeats: {},
 };

@@ -1,12 +1,13 @@
+/* eslint-disable react/jsx-indent */
 /* eslint-disable no-debugger */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-// import { useNavigate } from "@reach/router";
+import { useNavigate } from "@reach/router";
 import axios from "axios";
 import AppContext from "../../store/context";
-import WhichShow from "../WhichShow/whichShow";
+import "./whichTheater-index.css";
 
 const Button = styled.button`
   cursor: pointer;
@@ -25,35 +26,116 @@ const Button = styled.button`
   }
 `;
 function WhichTheater() {
+  const [theatersForTheDate, setTheatersForTheDate] = useState([]);
   const { state, dispatch } = useContext(AppContext);
-  const { selectedMovie, theaters } = state;
-  const [showOptions, setShowOptions] = useState(-1);
-  // const navigate = useNavigate();
+  const { selectedMovie, datesAndTheaters } = state;
+  const [showOptions, setShowOptions] = useState(false);
+  // const [showTimings, setShowTimings] = useState(-1);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!theaters.length) {
+    if (datesAndTheaters.length > 0) {
       const getTheaters = async () => {
         const response = await axios.get(
-          "http://localhost:5050/api/v1/theaters"
+          `http://localhost:5050/api/v1/theaters/${selectedMovie.title}`
         );
-        const theatersData = await response.data;
-        if (theatersData) {
-          dispatch({ type: "setTheaters", data: theatersData });
+        const datesAndTheatersData = await response.data;
+        if (datesAndTheatersData) {
+          dispatch({ type: "setDatesAndTheaters", data: datesAndTheatersData });
         }
       };
       getTheaters();
     }
-  }, [theaters, dispatch]);
-  if (selectedMovie) {
-    return (
-      <div>
-        <div>
-          <label>
-            <h4>For the Movie : {selectedMovie.title}</h4>
-          </label>
-        </div>
+  }, [datesAndTheaters, dispatch, selectedMovie.title]);
 
-        {theaters.map((eachTheater, index) => (
+  return (
+    <div>
+      <div>
+        <label>
+          <h4>Movie : {selectedMovie.title}</h4>
+        </label>
+        <div>
+          <h4>Choose a Date:&nbsp;</h4>
+          <select
+            value={datesAndTheaters.date}
+            onChange={(e) => {
+              const filteredDatesAndTheaters = datesAndTheaters.filter(
+                (item) => {
+                  return item.date === e.target.value;
+                }
+              );
+              setTheatersForTheDate(filteredDatesAndTheaters);
+              setShowOptions(true);
+            }}
+          >
+            <option>--select Date--</option>
+            {datesAndTheaters.map((eachDate) => (
+              <option value={eachDate.date} key={eachDate.date}>
+                {eachDate.date}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          {showOptions && (
+            <div>
+              {theatersForTheDate.map((eachTheaterForTheDate) => (
+                <div>
+                  {eachTheaterForTheDate.theater.map((eachTheater) => (
+                    <div>
+                      <table>
+                        <thead>
+                          <tr>
+                            <th colSpan="4">{eachTheater.theaterName}</th>
+                          </tr>
+                        </thead>
+                        {eachTheater.shows.map((eachShow) => (
+                          <tr
+                            onClick={() => {
+                              dispatch({
+                                type: "setSelectedTheater",
+                                data: eachTheater,
+                              });
+                              dispatch({
+                                type: "setSelectedShow",
+                                data: eachShow,
+                              });
+                              navigate("./noOfTickets");
+                            }}
+                          >
+                            <td>{eachShow.time}</td>
+                            <td>{eachShow.show}</td>
+                            <td>
+                              <Button
+                                onClick={() => {
+                                  dispatch({
+                                    type: "setSelectedTheater",
+                                    data: eachTheater,
+                                  });
+                                  dispatch({
+                                    type: "setSelectedShow",
+                                    data: eachShow,
+                                  });
+                                  navigate("./noOfTickets");
+                                }}
+                              >
+                                Buy Tickets
+                              </Button>
+                            </td>
+                          </tr>
+                        ))}
+                      </table>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* {theaters.map((eachTheater, index) => (
           <div>
             <Button
               key={eachTheater._id}
@@ -64,10 +146,8 @@ function WhichTheater() {
             </Button>
             {showOptions === index && <WhichShow options={eachTheater} />}
           </div>
-        ))}
-      </div>
-    );
-  }
-  return <>loading</>;
+        ))} */}
+    </div>
+  );
 }
 export default WhichTheater;

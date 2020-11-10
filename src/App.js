@@ -6,9 +6,8 @@ import AppContext from "./store/context";
 import store from "./store";
 import SelectedMovie from "./pages/SelectedMovie/selectedMovie-index";
 import WhichTheater from "./pages/WhichTheater/whichTheater-index";
-import BookTickets from "./pages/BookTickets/bookTickets-index";
+import NoOfTickets from "./pages/NoOfTickets/noOfTickets-index";
 import SeatLayout from "./pages/SeatLayout/SeatLayout";
-import WhichShow from "./pages/WhichShow/whichShow";
 
 function App() {
   const [state, dispatch] = useReducer(store.reducer, store.initialState);
@@ -20,9 +19,8 @@ function App() {
           <LandingPage path="/landingPage" />
           <SelectedMovie path="/selectedMovie" />
           <WhichTheater path="/whichTheater" />
-          <BookTickets path="/bookTickets" />
+          <NoOfTickets path="/noOfTickets" />
           <SeatLayout path="/seatLayout" />
-          <WhichShow path="/whichShow" />
         </Router>
       </AppContext.Provider>
     </div>

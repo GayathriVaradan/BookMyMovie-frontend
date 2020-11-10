@@ -28,6 +28,17 @@ function SelectedMovie() {
 
   return (
     <div>
+      <Button
+        type="button"
+        onClick={() => {
+          dispatch({ type: "setSelectedMovie", data: selectedMovie });
+          navigate("./whichTheater");
+        }}
+      >
+        Select Date and Theater
+      </Button>
+      <img alt="" src={selectedMovie.poster} />
+
       <div>Genre :{selectedMovie.title}</div>
       <div>
         Year:
@@ -39,17 +50,14 @@ function SelectedMovie() {
       <div>Release Date :{selectedMovie.releaseDate}</div>
       <div>Story Line :{selectedMovie.storyline}</div>
       <div>imdb Rating :{selectedMovie.imdbRating}</div>
-      <img alt="" src={selectedMovie.posterurl} />
-
-      <Button
-        type="button"
-        onClick={() => {
-          dispatch({ type: "setSelectedMovie", data: selectedMovie });
-          navigate("./whichTheater");
-        }}
-      >
-        Book Tickets
-      </Button>
+      <div>
+        Actors:
+        <div>
+          {selectedMovie.actors.map((actor) => (
+            <h6>{actor}</h6>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

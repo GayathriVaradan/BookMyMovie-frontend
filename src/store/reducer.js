@@ -10,15 +10,25 @@ const reducer = (state, action) => {
         ...state,
         selectedMovie: action.data,
       };
-    case "setTheaters":
+    case "setDatesAndTheaters":
       return {
         ...state,
-        theaters: action.data,
+        datesAndTheaters: action.data,
+      };
+    case "setSelectedDate":
+      return {
+        ...state,
+        selectedDate: action.data,
       };
     case "setSelectedTheater":
       return {
         ...state,
         selectedTheater: action.data,
+      };
+    case "setSelectedShow":
+      return {
+        ...state,
+        selectedShow: action.data,
       };
     case "setNumberOfTickets":
       return {
