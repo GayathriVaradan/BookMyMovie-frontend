@@ -1,15 +1,15 @@
-table {
+.theaterList {
   border-collapse: collapse;
   width: 100%;
 }
-th {
+.thForTheaterList {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
   background-color: #d147a3;
   color: white;
 }
-td {
+.tdForTheaterList {
   padding: 8px;
   text-align: center;
   border-bottom: 1px solid #ddd;

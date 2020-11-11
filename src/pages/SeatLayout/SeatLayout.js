@@ -27,49 +27,154 @@ const Button = styled.button`
 function SeatLayout() {
   // Declare a new state variable, which we'll call "count"
   const { state, dispatch } = useContext(AppContext);
-  const n = 26;
-  let i;
-  const seats = [];
+  const seatsArrayList = [];
+  const firstRow = [1, 2, 3, 4, 5];
+  const secondRow = [6, 7, 8, 9, 10];
+  const thirdRow = [11, 12, 13, 14, 15];
+  const fourthRow = [16, 17, 18, 19, 20];
+  const fifthRow = [21, 22, 23, 24, 25];
   const {
     selectedMovie,
     selectedTheater,
-    // datesAndTheaters,
     selectedShow,
     numberOfTickets,
   } = state;
-
+  // const [isTheSeatAvaiable, setIsTheSeatAvailable] = useState(true);
   const navigate = useNavigate();
-  function displaySeats() {
-    for (i = 1; i < n; i++) {
-      seats.push(i);
+
+  const isItAvailable = (value) => {
+    const available = selectedShow.seatsUnavailable.find((item) => {
+      return item === value;
+    });
+    if (available) {
+      return true;
     }
-  }
+    return false;
+  };
   return (
     <div>
       <div> Movie : {selectedMovie.title}</div>
       <div> Theater : {selectedTheater.theaterName}</div>
       <div>Show: {selectedShow.show}</div>
       <div> Number of tickets: {numberOfTickets}</div>
-      {displaySeats()}
-      {seats.map((item) => (
-        <div>
-          <table>
-            <tr>
+      <div>Seats Unavailable: {selectedShow.seatsUnavailable}</div>
+      <table>
+        <tr>
+          {firstRow.map((item) => (
+            <>
               <td>
-                <input id="check" type="checkbox" />
+                <label
+                  className="seats"
+                  onChange={() => {
+                    seatsArrayList.push(item);
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    name="checkbox"
+                    value="item"
+                    disabled={isItAvailable(item)}
+                  />
+                  {item}
+                </label>
               </td>
-            </tr>
-            <tr>
-              <td>{item}</td>
-            </tr>
-          </table>
-        </div>
-      ))}
+            </>
+          ))}
+        </tr>
+        <tr>
+          {secondRow.map((item) => (
+            <>
+              <td>
+                <label
+                  className="seats"
+                  onChange={() => {
+                    seatsArrayList.push(item);
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    name="checkbox"
+                    value="item"
+                    disabled={isItAvailable(item)}
+                  />
+                  {item}
+                </label>
+              </td>
+            </>
+          ))}
+        </tr>
+        <tr>
+          {thirdRow.map((item) => (
+            <>
+              <td>
+                <label
+                  className="seats"
+                  onChange={() => {
+                    seatsArrayList.push(item);
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    name="checkbox"
+                    value="item"
+                    disabled={isItAvailable(item)}
+                  />
+                  {item}
+                </label>
+              </td>
+            </>
+          ))}
+        </tr>
+        <tr>
+          {fourthRow.map((item) => (
+            <>
+              <td>
+                <label
+                  className="seats"
+                  onChange={() => {
+                    seatsArrayList.push(item);
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    name="checkbox"
+                    value="item"
+                    disabled={isItAvailable(item)}
+                  />
+                  {item}
+                </label>
+              </td>
+            </>
+          ))}
+        </tr>
+        <tr>
+          {fifthRow.map((item) => (
+            <>
+              <td>
+                <label
+                  className="seats"
+                  onChange={() => {
+                    seatsArrayList.push(item);
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    name="checkbox"
+                    value="item"
+                    disabled={isItAvailable(item)}
+                  />
+                  {item}
+                </label>
+              </td>
+            </>
+          ))}
+        </tr>
+      </table>
       <Button
         type="button"
         onClick={() => {
-          dispatch({ type: "setSelectedSeats", data: selectedMovie });
-          navigate("./");
+          dispatch({ type: "setSelectedSeats", data: seatsArrayList });
+          navigate("./emailReservation");
         }}
       >
         Continue

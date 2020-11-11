@@ -65,6 +65,10 @@ function WhichTheater() {
                   return item.date === e.target.value;
                 }
               );
+              dispatch({
+                type: "setSelectedDate",
+                data: e.target.value,
+              });
               setTheatersForTheDate(filteredDatesAndTheaters);
               setShowOptions(true);
             }}
@@ -84,10 +88,12 @@ function WhichTheater() {
                 <div>
                   {eachTheaterForTheDate.theater.map((eachTheater) => (
                     <div>
-                      <table>
+                      <table className="theaterList">
                         <thead>
                           <tr>
-                            <th colSpan="4">{eachTheater.theaterName}</th>
+                            <th className="thForTheaterList" colSpan="4">
+                              {eachTheater.theaterName}
+                            </th>
                           </tr>
                         </thead>
                         {eachTheater.shows.map((eachShow) => (
@@ -104,9 +110,13 @@ function WhichTheater() {
                               navigate("./noOfTickets");
                             }}
                           >
-                            <td>{eachShow.time}</td>
-                            <td>{eachShow.show}</td>
-                            <td>
+                            <td className="tdForTheaterList">
+                              {eachShow.time}
+                            </td>
+                            <td className="tdForTheaterList">
+                              {eachShow.show}
+                            </td>
+                            <td className="tdForTheaterList">
                               <Button
                                 onClick={() => {
                                   dispatch({

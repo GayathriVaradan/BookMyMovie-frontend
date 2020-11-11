@@ -40,7 +40,7 @@ const state = {
   selectedTheater: [],
   selectedShow: {},
   numberOfTickets: {},
-  selectedSeats: {},
+  selectedSeats: [],
 };
 
 export default state;
