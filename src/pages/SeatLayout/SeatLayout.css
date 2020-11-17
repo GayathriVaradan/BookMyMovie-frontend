@@ -1,7 +1,10 @@
 .seats { 
-    background-color: white; 
-    border: 2px solid black; 
-    color: green; 
+    background-color: hsl(93, 48%, 81%); 
+    
+    border-style: outset;
+
+    border-width: 5px 20px;
+    color: blue; 
     padding: 5px 10px; 
     text-align: center; 
     display: inline-block; 
@@ -9,3 +12,17 @@
     margin: 10px 10px; 
     cursor: pointer; 
 } 
+.seats:hover{    
+    border-style: inset;
+}
+td:hover {background-color:greenyellow;}
+input.largeCheckBox{
+    width: 20px; 
+    height: 20px;
+}
+.largeCheckBox:disabled {
+    --b: var(--disabled);
+    cursor: not-allowed;
+    opacity: .5;
+
+  }

@@ -1,2 +1,17 @@
 [1110/101653.249:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
 [1111/111914.441:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1112/085439.985:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1113/001513.155:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1113/001513.154:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1113/001513.144:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1113/001513.137:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1113/001513.153:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1113/001513.239:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1113/001513.374:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 43760 not found in process
+[1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 33440 not found in process
+[1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 4264 not found in process
+[1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 35512 not found in process
+[1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 33060 not found in process
+[1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 34036 not found in process
+[1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 41140 not found in process

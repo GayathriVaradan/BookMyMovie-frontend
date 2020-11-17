@@ -54,7 +54,7 @@ function SelectedMovie() {
         Actors:
         <div>
           {selectedMovie.actors.map((actor) => (
-            <h6>{actor}</h6>
+            <h6 key={actor}>{actor}</h6>
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "@reach/router";
 import AppContext from "../../store/context";
@@ -27,6 +27,12 @@ const Button = styled.button`
 function SeatLayout() {
   // Declare a new state variable, which we'll call "count"
   const { state, dispatch } = useContext(AppContext);
+  // eslint-disable-next-line no-unused-vars
+  const [seatSelectionAllowed, setSeatSelectionAllowed] = useState(false);
+  // eslint-disable-next-line prefer-const
+  let [sortedSeatsArray, setSortedSeatsArray] = useState([]);
+  let available = true;
+  // const isItChecked = 0;
   const seatsArrayList = [];
   const firstRow = [1, 2, 3, 4, 5];
   const secondRow = [6, 7, 8, 9, 10];
@@ -43,13 +49,29 @@ function SeatLayout() {
   const navigate = useNavigate();
 
   const isItAvailable = (value) => {
-    const available = selectedShow.seatsUnavailable.find((item) => {
+    available = selectedShow.seatsUnavailable.find((item) => {
       return item === value;
     });
     if (available) {
       return true;
     }
     return false;
+  };
+  const selectedCheckBox = (item, e) => {
+    if (e.target.type === "checkbox" && e.target.checked) {
+      seatsArrayList.push(item);
+    } else if (e.target.type === "checkbox" && !e.target.checked) {
+      for (let i = 0; i < seatsArrayList.length; i++) {
+        if (seatsArrayList[i] === item) {
+          seatsArrayList.splice(i, 1);
+        }
+      }
+    }
+    const temp = numberOfTickets - seatsArrayList.length;
+    if (temp === 0) {
+      setSortedSeatsArray(seatsArrayList);
+      setSeatSelectionAllowed(true);
+    }
   };
   return (
     <div>
@@ -58,122 +80,141 @@ function SeatLayout() {
       <div>Show: {selectedShow.show}</div>
       <div> Number of tickets: {numberOfTickets}</div>
       <div>Seats Unavailable: {selectedShow.seatsUnavailable}</div>
+
       <table>
-        <tr>
-          {firstRow.map((item) => (
-            <>
-              <td>
-                <label
-                  className="seats"
-                  onChange={() => {
-                    seatsArrayList.push(item);
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    name="checkbox"
-                    value="item"
-                    disabled={isItAvailable(item)}
-                  />
-                  {item}
-                </label>
-              </td>
-            </>
-          ))}
-        </tr>
-        <tr>
-          {secondRow.map((item) => (
-            <>
-              <td>
-                <label
-                  className="seats"
-                  onChange={() => {
-                    seatsArrayList.push(item);
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    name="checkbox"
-                    value="item"
-                    disabled={isItAvailable(item)}
-                  />
-                  {item}
-                </label>
-              </td>
-            </>
-          ))}
-        </tr>
-        <tr>
-          {thirdRow.map((item) => (
-            <>
-              <td>
-                <label
-                  className="seats"
-                  onChange={() => {
-                    seatsArrayList.push(item);
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    name="checkbox"
-                    value="item"
-                    disabled={isItAvailable(item)}
-                  />
-                  {item}
-                </label>
-              </td>
-            </>
-          ))}
-        </tr>
-        <tr>
-          {fourthRow.map((item) => (
-            <>
-              <td>
-                <label
-                  className="seats"
-                  onChange={() => {
-                    seatsArrayList.push(item);
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    name="checkbox"
-                    value="item"
-                    disabled={isItAvailable(item)}
-                  />
-                  {item}
-                </label>
-              </td>
-            </>
-          ))}
-        </tr>
-        <tr>
-          {fifthRow.map((item) => (
-            <>
-              <td>
-                <label
-                  className="seats"
-                  onChange={() => {
-                    seatsArrayList.push(item);
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    name="checkbox"
-                    value="item"
-                    disabled={isItAvailable(item)}
-                  />
-                  {item}
-                </label>
-              </td>
-            </>
-          ))}
-        </tr>
+        <tbody>
+          <tr>
+            {firstRow.map((item) => (
+              <>
+                <td key={item}>
+                  <label
+                    className="seats"
+                    onChange={(e) => {
+                      selectedCheckBox(item, e);
+                    }}
+                  >
+                    <input
+                      className="largeCheckBox"
+                      type="checkbox"
+                      name="checkbox"
+                      value="item"
+                      hidden={isItAvailable(item)}
+                      disabled={seatSelectionAllowed}
+                    />
+                    {item}
+                  </label>
+                </td>
+              </>
+            ))}
+          </tr>
+          <tr>
+            {secondRow.map((item) => (
+              <>
+                <td key={item}>
+                  <label
+                    className="seats"
+                    onChange={(e) => {
+                      selectedCheckBox(item, e);
+                    }}
+                  >
+                    <input
+                      className="largeCheckBox"
+                      type="checkbox"
+                      name="checkbox"
+                      value="item"
+                      hidden={isItAvailable(item)}
+                      disabled={seatSelectionAllowed}
+                    />
+                    {item}
+                  </label>
+                </td>
+              </>
+            ))}
+          </tr>
+          <tr>
+            {thirdRow.map((item) => (
+              <>
+                <td key={item}>
+                  <label
+                    className="seats"
+                    onChange={(e) => {
+                      selectedCheckBox(item, e);
+                    }}
+                  >
+                    <input
+                      className="largeCheckBox"
+                      type="checkbox"
+                      name="checkbox"
+                      value="item"
+                      hidden={isItAvailable(item)}
+                      disabled={seatSelectionAllowed}
+                    />
+                    {item}
+                  </label>
+                </td>
+              </>
+            ))}
+          </tr>
+          <tr>
+            {fourthRow.map((item) => (
+              <>
+                <td key={item}>
+                  <label
+                    className="seats"
+                    onChange={(e) => {
+                      selectedCheckBox(item, e);
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      className="largeCheckBox"
+                      name="checkbox"
+                      value="item"
+                      hidden={isItAvailable(item)}
+                      disabled={seatSelectionAllowed}
+                    />
+                    {item}
+                  </label>
+                </td>
+              </>
+            ))}
+          </tr>
+          <tr>
+            {fifthRow.map((item) => (
+              <>
+                <td key={item}>
+                  <label
+                    className="seats"
+                    onChange={(e) => {
+                      selectedCheckBox(item, e);
+                    }}
+                  >
+                    <input
+                      className="largeCheckBox"
+                      type="checkbox"
+                      name="checkbox"
+                      value="item"
+                      hidden={isItAvailable(item)}
+                      disabled={seatSelectionAllowed}
+                    />
+                    {item}
+                  </label>
+                </td>
+              </>
+            ))}
+          </tr>
+        </tbody>
       </table>
       <Button
         type="button"
         onClick={() => {
-          dispatch({ type: "setSelectedSeats", data: seatsArrayList });
+          sortedSeatsArray = sortedSeatsArray.sort((a, b) => {
+            return a - b;
+          });
+          dispatch({
+            type: "setSelectedSeats",
+            data: sortedSeatsArray,
+          });
           navigate("./emailReservation");
         }}
       >

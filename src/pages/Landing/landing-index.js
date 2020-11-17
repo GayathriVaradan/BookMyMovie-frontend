@@ -43,26 +43,24 @@ const LandingPage = () => {
 
   return (
     <div>
-      <div>
-        <Carousel center="true" autoPlay width="350px">
-          {movies.map((eachMovie) => (
-            <div>
-              <Button
-                type="button"
-                label="button"
-                value={eachMovie._id}
-                onClick={() => {
-                  dispatch({ type: "setSelectedMovie", data: eachMovie });
-                  navigate("./selectedMovie");
-                }}
-              >
-                {eachMovie.title}
-              </Button>
-              <img alt="" src={eachMovie.posterurl} />
-            </div>
-          ))}
-        </Carousel>
-      </div>
+      <Carousel center="true" autoPlay width="350px">
+        {movies.map((eachMovie) => (
+          <div key={eachMovie}>
+            <Button
+              type="button"
+              label="button"
+              value={eachMovie._id}
+              onClick={() => {
+                dispatch({ type: "setSelectedMovie", data: eachMovie });
+                navigate("./selectedMovie");
+              }}
+            >
+              {eachMovie.title}
+            </Button>
+            <img alt="" src={eachMovie.posterurl} />
+          </div>
+        ))}
+      </Carousel>
     </div>
   );
 };

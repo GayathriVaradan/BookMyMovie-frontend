@@ -85,9 +85,9 @@ function WhichTheater() {
           {showOptions && (
             <div>
               {theatersForTheDate.map((eachTheaterForTheDate) => (
-                <div>
+                <div key={eachTheaterForTheDate}>
                   {eachTheaterForTheDate.theater.map((eachTheater) => (
-                    <div>
+                    <div key={eachTheater.theaterName}>
                       <table className="theaterList">
                         <thead>
                           <tr>
@@ -96,44 +96,47 @@ function WhichTheater() {
                             </th>
                           </tr>
                         </thead>
+
                         {eachTheater.shows.map((eachShow) => (
-                          <tr
-                            onClick={() => {
-                              dispatch({
-                                type: "setSelectedTheater",
-                                data: eachTheater,
-                              });
-                              dispatch({
-                                type: "setSelectedShow",
-                                data: eachShow,
-                              });
-                              navigate("./noOfTickets");
-                            }}
-                          >
-                            <td className="tdForTheaterList">
-                              {eachShow.time}
-                            </td>
-                            <td className="tdForTheaterList">
-                              {eachShow.show}
-                            </td>
-                            <td className="tdForTheaterList">
-                              <Button
-                                onClick={() => {
-                                  dispatch({
-                                    type: "setSelectedTheater",
-                                    data: eachTheater,
-                                  });
-                                  dispatch({
-                                    type: "setSelectedShow",
-                                    data: eachShow,
-                                  });
-                                  navigate("./noOfTickets");
-                                }}
-                              >
-                                Buy Tickets
-                              </Button>
-                            </td>
-                          </tr>
+                          <tbody key={eachShow.time}>
+                            <tr
+                              onClick={() => {
+                                dispatch({
+                                  type: "setSelectedTheater",
+                                  data: eachTheater,
+                                });
+                                dispatch({
+                                  type: "setSelectedShow",
+                                  data: eachShow,
+                                });
+                                navigate("./noOfTickets");
+                              }}
+                            >
+                              <td className="tdForTheaterList">
+                                {eachShow.time}
+                              </td>
+                              <td className="tdForTheaterList">
+                                {eachShow.show}
+                              </td>
+                              <td className="tdForTheaterList">
+                                <Button
+                                  onClick={() => {
+                                    dispatch({
+                                      type: "setSelectedTheater",
+                                      data: eachTheater,
+                                    });
+                                    dispatch({
+                                      type: "setSelectedShow",
+                                      data: eachShow,
+                                    });
+                                    navigate("./noOfTickets");
+                                  }}
+                                >
+                                  Buy Tickets
+                                </Button>
+                              </td>
+                            </tr>
+                          </tbody>
                         ))}
                       </table>
                     </div>

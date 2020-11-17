@@ -1,25 +1,9 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
-import styled from "styled-components";
 import AppContext from "../../store/context";
+import "./noOfTickets-index.css";
 
-const Button = styled.button`
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border-radius: 3px;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  transition: 0.5s all ease-out;
-
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-`;
 function NoOfTickets() {
   const [count, setCount] = useState(0);
   const { state, dispatch } = useContext(AppContext);
@@ -36,25 +20,49 @@ function NoOfTickets() {
       setCount(count - 1);
     }
   };
-
+  const block = (value) => {
+    if (value === 5) {
+      return true;
+    }
+    return false;
+  };
+  const showButton = (value) => {
+    if (!value) {
+      return true;
+    }
+    return false;
+  };
   return (
     <div>
       <div>
-        Number Of tickets :<Button onClick={decrement}> -</Button> {count}
-        <Button onClick={increment}>+</Button>
+        Number Of tickets :
+        <button className="buttonStyle" type="button" onClick={decrement}>
+          -
+        </button>
+        {count}
+        <button
+          className="buttonStyle"
+          type="button"
+          onClick={increment}
+          disabled={block(count)}
+        >
+          +
+        </button>
       </div>
       <div>Movie : {selectedMovie.title}</div>
       <div>Theater : {selectedTheater.theaterName}</div>
       <div>Show : {selectedShow.show}</div>
-      <Button
+      <button
         type="button"
+        className="buttonStyle"
         onClick={() => {
           dispatch({ type: "setNumberOfTickets", data: count });
           navigate("./seatLayout");
         }}
+        disabled={showButton(count)}
       >
         Select seats
-      </Button>
+      </button>
     </div>
   );
 }
