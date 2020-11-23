@@ -1,14 +1,43 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "@reach/router";
+import axios from "axios";
 import AppContext from "../../store/context";
+
 import "./noOfTickets-index.css";
 
 function NoOfTickets() {
   const [count, setCount] = useState(0);
   const { state, dispatch } = useContext(AppContext);
-  const { selectedTheater, selectedMovie, selectedShow } = state;
+  const {
+    dataForBackend,
+    selectedTheater,
+    selectedMovie,
+    selectedShow,
+    seatsUnavailableDetails,
+  } = state;
   const navigate = useNavigate();
+  useEffect(() => {
+    async function getSeatsUnavailableDetails() {
+      const response = await axios.get(
+        `http://localhost:5050/api/v1/seatsUnavailable/theater_id/${dataForBackend._id}/theaterName/${selectedTheater.theaterName}/show/${selectedShow.show}`
+      );
+      const seatsUnavailableDetailsData = await response.data;
+      if (seatsUnavailableDetailsData) {
+        dispatch({
+          type: "setSeatsUnavailableDetails",
+          data: seatsUnavailableDetailsData,
+        });
+      }
+    }
+    getSeatsUnavailableDetails();
+  }, [
+    seatsUnavailableDetails,
+    dispatch,
+    dataForBackend._id,
+    selectedTheater.theaterName,
+    selectedShow.show,
+  ]);
   const increment = () => {
     setCount(count + 1);
   };

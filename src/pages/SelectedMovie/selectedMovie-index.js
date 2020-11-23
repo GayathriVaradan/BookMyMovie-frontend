@@ -39,25 +39,26 @@ function SelectedMovie() {
       </Button>
       <img alt="" src={selectedMovie.poster} />
 
-      <div>Genre :{selectedMovie.title}</div>
-      <div>
-        Year:
-        {selectedMovie.year}
-      </div>
-
-      <div>Genre :{selectedMovie.genre}</div>
-      <div>Rating :{selectedMovie.contentRating}</div>
-      <div>Release Date :{selectedMovie.releaseDate}</div>
-      <div>Story Line :{selectedMovie.storyline}</div>
-      <div>imdb Rating :{selectedMovie.imdbRating}</div>
-      <div>
+      <p>Genre : {selectedMovie.title}</p>
+      <p>Year: {selectedMovie.year}</p>
+      <p>
+        Genre :
+        {selectedMovie.genres.map((oneGenre) => (
+          <p key={oneGenre}>{oneGenre}</p>
+        ))}
+      </p>
+      <p>Rating : {selectedMovie.contentRating}</p>
+      <p>Release Date : {selectedMovie.releaseDate}</p>
+      <p>Story Line : {selectedMovie.storyline}</p>
+      <p>imdb Rating : {selectedMovie.imdbRating}</p>
+      <p>
         Actors:
-        <div>
+        <p>
           {selectedMovie.actors.map((actor) => (
-            <h6 key={actor}>{actor}</h6>
+            <p key={actor}>{actor}</p>
           ))}
-        </div>
-      </div>
+        </p>
+      </p>
     </div>
   );
 }

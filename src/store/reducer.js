@@ -40,6 +40,16 @@ const reducer = (state, action) => {
         ...state,
         selectedSeats: action.data,
       };
+    case "setDataForBackend":
+      return {
+        ...state,
+        dataForBackend: action.data,
+      };
+    case "setSeatsUnavailableDetails":
+      return {
+        ...state,
+        seatsUnavailableDetails: action.data,
+      };
     default:
       return state;
   }

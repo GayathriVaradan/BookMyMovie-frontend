@@ -20,6 +20,7 @@ const state = {
   selectedMovie: {},
   datesAndTheaters: [
     {
+      _id: "",
       date: "",
       title: "",
       theater: [
@@ -29,11 +30,21 @@ const state = {
             {
               show: "",
               time: "",
-              seatsUnavaible: "",
             },
           ],
         },
       ],
+    },
+  ],
+  seatsUnavailableDetails: [
+    {
+      _id: "",
+      theater_Id: "",
+      title: "",
+      theaterName: "",
+      show: "",
+      time: "",
+      seatsUnavailable: [],
     },
   ],
   selectedDate: {},
@@ -41,6 +52,7 @@ const state = {
   selectedShow: {},
   numberOfTickets: {},
   selectedSeats: [],
+  dataForBackend: {},
 };
 
 export default state;

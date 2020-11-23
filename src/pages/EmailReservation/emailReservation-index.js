@@ -1,48 +1,45 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useState } from "react";
-import styled from "styled-components";
 import { useNavigate } from "@reach/router";
 import emailjs from "emailjs-com";
 import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
+
 import AppContext from "../../store/context";
 import "./emailReservation-index.css";
 
-const Button = styled.button`
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border-radius: 3px;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  transition: 0.5s all ease-out;
-
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-`;
 function EmailReservation() {
   // Declare a new state variable, which we'll call "count"
   const { state, dispatch } = useContext(AppContext);
-  const [product, setProduct] = useState({
-    name: "React from FB",
-    price: 10,
-    productBy: "facebook",
-  });
+  const price = 100;
+  const [paymentStatus, setPaymentStatus] = useState();
   const {
+    dataForBackend,
     selectedMovie,
     selectedDate,
     selectedTheater,
     selectedShow,
     selectedSeats,
+    seatsUnavailableDetails,
   } = state;
   const navigate = useNavigate();
-  console.log(setProduct);
+  const makePayment = async (token) => {
+    try {
+      const response = await axios.post("http://localhost:5050/payment", {
+        token,
+        price,
+        selectedMovie,
+      });
+      setPaymentStatus(response.data.charge.status);
+      console.log("make payment", response);
+    } catch (error) {
+      console.log("make payment", error);
+    }
+  };
   function sendEmail(e) {
     e.preventDefault();
+    console.log("charge sendEmail: ", paymentStatus);
 
     emailjs
       .sendForm(
@@ -60,31 +57,7 @@ function EmailReservation() {
         }
       );
   }
-  const makePayment = (token) => {
-    const body = {
-      token,
-      product,
-      selectedMovie,
-      selectedDate,
-      selectedTheater,
-      selectedShow,
-      selectedSeats,
-    };
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    return fetch(`http://localhost:5050/payment`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify(body),
-    })
-      .then((response) => {
-        console.log("RESPONSE", response);
-        const { status } = response;
-        console.log("STATUS", status);
-      })
-      .catch((error) => console.log(error));
-  };
+
   return (
     <div>
       <>
@@ -182,22 +155,36 @@ function EmailReservation() {
             stripeKey="pk_test_51HmbeNKaGaw448OOF6cpgckz29IJwEZoZRVZTsaD97tC1quYXeML6dd3auAjpO4wWEg1VDLlpiU3CxKSM2vjiM5z00Vuf0aY6t"
             token={makePayment}
             name="Book the Movie"
-            amount={product.price}
-          />
-          <Button
-            type="submit"
-            value="Send"
-            onClick={() => {
-              selectedSeats.forEach((selectedSeat) => {
-                selectedShow.seatsUnavailable.push(selectedSeat);
-              });
-
-              dispatch({ type: "setSelectedShow", data: selectedShow });
-              navigate("./thankYou");
-            }}
+            amount={price}
           >
-            Pay
-          </Button>
+            <button
+              type="submit"
+              value="Send"
+              onClick={() => {
+                // if (paymentStatus === "succeeded") {
+                console.log("Pay button : ", paymentStatus);
+
+                selectedSeats.forEach((selectedSeat) => {
+                  seatsUnavailableDetails.seatsUnavailable.push(selectedSeat);
+                });
+
+                dispatch({
+                  type: "setSeatsUnavailableDetails",
+                  data: seatsUnavailableDetails,
+                });
+
+                const theaterUpdate = axios.patch(
+                  `http://localhost:5050/api/v1/seatsUnavailable/theater_id/${dataForBackend._id}/theaterName/${selectedTheater.theaterName}/show/${selectedShow.show}`,
+                  seatsUnavailableDetails.seatsUnavailable
+                );
+                console.log(theaterUpdate);
+                navigate("./thankYou");
+                // }
+              }}
+            >
+              Pay
+            </button>
+          </StripeCheckout>
         </form>
       </>
     </div>

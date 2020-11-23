@@ -2,31 +2,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useState } from "react";
-import styled from "styled-components";
 import { useNavigate } from "@reach/router";
 import AppContext from "../../store/context";
 import "./SeatLayout.css";
 
-const Button = styled.button`
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border-radius: 3px;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  transition: 0.5s all ease-out;
-
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-`;
-
 function SeatLayout() {
-  // Declare a new state variable, which we'll call "count"
   const { state, dispatch } = useContext(AppContext);
+  const [allSeatsSelected, setAllSeatsSelected] = useState(true);
   // eslint-disable-next-line no-unused-vars
   const [seatSelectionAllowed, setSeatSelectionAllowed] = useState(false);
   // eslint-disable-next-line prefer-const
@@ -44,13 +26,14 @@ function SeatLayout() {
     selectedTheater,
     selectedShow,
     numberOfTickets,
+    seatsUnavailableDetails,
   } = state;
   // const [isTheSeatAvaiable, setIsTheSeatAvailable] = useState(true);
   const navigate = useNavigate();
 
   const isItAvailable = (value) => {
-    available = selectedShow.seatsUnavailable.find((item) => {
-      return item === value;
+    available = seatsUnavailableDetails.seatsUnavailable.find((seat) => {
+      return seat === value;
     });
     if (available) {
       return true;
@@ -71,6 +54,7 @@ function SeatLayout() {
     if (temp === 0) {
       setSortedSeatsArray(seatsArrayList);
       setSeatSelectionAllowed(true);
+      setAllSeatsSelected(false);
     }
   };
   return (
@@ -79,8 +63,12 @@ function SeatLayout() {
       <div> Theater : {selectedTheater.theaterName}</div>
       <div>Show: {selectedShow.show}</div>
       <div> Number of tickets: {numberOfTickets}</div>
-      <div>Seats Unavailable: {selectedShow.seatsUnavailable}</div>
-
+      <div>
+        Seats Unavailable:
+        {seatsUnavailableDetails.seatsUnavailable.map((oneSeat) => (
+          <> {oneSeat}</>
+        ))}
+      </div>
       <table>
         <tbody>
           <tr>
@@ -205,7 +193,7 @@ function SeatLayout() {
           </tr>
         </tbody>
       </table>
-      <Button
+      <button
         type="button"
         onClick={() => {
           sortedSeatsArray = sortedSeatsArray.sort((a, b) => {
@@ -217,9 +205,10 @@ function SeatLayout() {
           });
           navigate("./emailReservation");
         }}
+        disabled={allSeatsSelected}
       >
         Continue
-      </Button>
+      </button>
     </div>
   );
 }

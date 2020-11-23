@@ -57,7 +57,15 @@ const LandingPage = () => {
             >
               {eachMovie.title}
             </Button>
-            <img alt="" src={eachMovie.posterurl} />
+            <img
+              alt=""
+              src={eachMovie.posterurl}
+              onClick={() => {
+                console.log("hi");
+                dispatch({ type: "setSelectedMovie", data: eachMovie });
+                navigate("./selectedMovie");
+              }}
+            />
           </div>
         ))}
       </Carousel>

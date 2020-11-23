@@ -15,3 +15,5 @@
 [1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 33060 not found in process
 [1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 34036 not found in process
 [1113/001513.396:ERROR:exception_snapshot_win.cc(99)] thread ID 41140 not found in process
+[1122/100911.491:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1123/220238.677:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
