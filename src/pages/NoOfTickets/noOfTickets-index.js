@@ -2,11 +2,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "@reach/router";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
 
 import "./noOfTickets-index.css";
 
 function NoOfTickets() {
+  const { t } = useTranslation();
   const [count, setCount] = useState(0);
   const { state, dispatch } = useContext(AppContext);
   const {
@@ -64,13 +66,13 @@ function NoOfTickets() {
   return (
     <div>
       <div>
-        Number Of tickets :
-        <button className="buttonStyle" type="button" onClick={decrement}>
+        {t("Number Of tickets")} :
+        <button className="commonButton" type="button" onClick={decrement}>
           -
         </button>
         {count}
         <button
-          className="buttonStyle"
+          className="commonButton"
           type="button"
           onClick={increment}
           disabled={block(count)}
@@ -78,19 +80,25 @@ function NoOfTickets() {
           +
         </button>
       </div>
-      <div>Movie : {selectedMovie.title}</div>
-      <div>Theater : {selectedTheater.theaterName}</div>
-      <div>Show : {selectedShow.show}</div>
+      <div>
+        {t("Movie")} : {selectedMovie.title}
+      </div>
+      <div>
+        {t("Theater")} : {selectedTheater.theaterName}
+      </div>
+      <div>
+        {t("Show")} : {selectedShow.show}
+      </div>
       <button
         type="button"
-        className="buttonStyle"
+        className="commonButton"
         onClick={() => {
           dispatch({ type: "setNumberOfTickets", data: count });
           navigate("./seatLayout");
         }}
         disabled={showButton(count)}
       >
-        Select seats
+        {t("Select seats")}
       </button>
     </div>
   );

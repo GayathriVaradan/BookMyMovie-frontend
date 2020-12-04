@@ -5,32 +5,23 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import styled from "styled-components";
 import { useNavigate } from "@reach/router";
+import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
 import "./landing-index-style.css";
 
-const Button = styled.button`
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border-radius: 3px;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  transition: 0.5s all ease-out;
-
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-`;
 const LandingPage = () => {
+  const { t } = useTranslation();
+
   const { state, dispatch } = useContext(AppContext);
   const { movies } = state;
   const navigate = useNavigate();
   const [movieName, setName] = useState("");
+  const [showErrorMsg, setShowErrorMsg] = useState(false);
+  const [
+    showErrorMsgForSearchedMovie,
+    setShowErrorMsgForSearchedMovie,
+  ] = useState(false);
 
   useEffect(() => {
     async function getMovies() {
@@ -49,26 +40,47 @@ const LandingPage = () => {
         onChange={(e) => setName(e.target.value)}
         type="text"
         value={movieName}
-        placeholder="Search for a Movie"
+        placeholder={t("Search for a Movie")}
       />
+      {showErrorMsg && (
+        <div className="errorMessage">
+          {t("Please select a movie and click Search")}
+        </div>
+      )}
+      {showErrorMsgForSearchedMovie && (
+        <div className="errorMessage">
+          {t(
+            "Sorry! This movie is not played in Stockholm. Please search for another movie."
+          )}
+        </div>
+      )}
       &nbsp;
       <button
         type="button"
-        className="button"
+        className="commonButton"
         onClick={() => {
-          const searchedMovie = axios.get(
-            `http://localhost:5050/api/v1/movies/title/${movieName}`
-          );
-          movies.map((eachMovie) => {
-            if (eachMovie.title === movieName) {
-              dispatch({ type: "setSelectedMovie", data: eachMovie });
-              navigate("./selectedMovie");
-            }
-            return searchedMovie;
-          });
+          if (movieName) {
+            const searchedMovie = axios.get(
+              `http://localhost:5050/api/v1/movies/title/${movieName}`
+            );
+            movies.map((eachMovie) => {
+              if (eachMovie.title === movieName) {
+                dispatch({ type: "setSelectedMovie", data: eachMovie });
+                navigate("./selectedMovie");
+              }
+              if (eachMovie.title !== movieName) {
+                setShowErrorMsgForSearchedMovie(true);
+              }
+              return searchedMovie;
+            });
+            setShowErrorMsg(false);
+          } else {
+            setShowErrorMsgForSearchedMovie(false);
+            setShowErrorMsg(true);
+          }
         }}
       >
-        Search
+        {t("Search for a Movie")}
       </button>
       <Carousel
         autoPlay="true"
@@ -78,9 +90,10 @@ const LandingPage = () => {
       >
         {movies.map((eachMovie) => (
           <div key={eachMovie}>
-            <Button
+            <button
               type="button"
               label="button"
+              className="commonButton"
               value={eachMovie._id}
               onClick={() => {
                 dispatch({ type: "setSelectedMovie", data: eachMovie });
@@ -88,7 +101,7 @@ const LandingPage = () => {
               }}
             >
               {eachMovie.title}
-            </Button>
+            </button>
             <img
               alt=""
               src={eachMovie.posterurl}

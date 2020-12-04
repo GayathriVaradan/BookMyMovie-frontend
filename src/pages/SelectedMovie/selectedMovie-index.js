@@ -1,42 +1,28 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext } from "react";
-import styled from "styled-components";
 import { useNavigate } from "@reach/router";
+import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
+import "./selectedMovie-index.css";
 
-const Button = styled.button`
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border-radius: 3px;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  transition: 0.5s all ease-out;
-
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-`;
 function SelectedMovie() {
-  // Declare a new state variable, which we'll call "count"
+  const { t } = useTranslation();
   const { state, dispatch } = useContext(AppContext);
   const { selectedMovie } = state;
   const navigate = useNavigate();
 
   return (
     <div>
-      <Button
+      <button
         type="button"
+        className="commonButton"
         onClick={() => {
           dispatch({ type: "setSelectedMovie", data: selectedMovie });
           navigate("./whichTheater");
         }}
       >
-        Select Date and Theater
-      </Button>
+        {t("Select Date and Theater")}
+      </button>
       <img alt="" src={selectedMovie.poster} />
 
       <p>Genre : {selectedMovie.title}</p>

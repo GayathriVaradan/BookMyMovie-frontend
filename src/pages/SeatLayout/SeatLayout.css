@@ -1,28 +1,45 @@
-.seats { 
-    background-color: hsl(93, 48%, 81%); 
-    
-    border-style: outset;
+.seats {
+  background-color: hsl(93, 48%, 81%);
 
-    border-width: 5px 20px;
-    color: blue; 
-    padding: 5px 10px; 
-    text-align: center; 
-    display: inline-block; 
-    font-size: 20px; 
-    margin: 10px 10px; 
-    cursor: pointer; 
-} 
-.seats:hover{    
-    border-style: inset;
+  border-style: outset;
+
+  border-width: 5px 20px;
+  color: blue;
+  padding: 5px 10px;
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  margin: 10px 10px;
+  cursor: pointer;
 }
-td:hover {background-color:greenyellow;}
-input.largeCheckBox{
-    width: 20px; 
-    height: 20px;
+.seats:hover {
+  border-style: inset;
+}
+.tableData:hover {
+  background-color: greenyellow;
+}
+input.largeCheckBox {
+  width: 20px;
+  height: 20px;
 }
 .largeCheckBox:disabled {
-    --b: var(--disabled);
-    cursor: not-allowed;
-    opacity: .5;
-
-  }
+  --b: var(--disabled);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.commonButton {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+.commonButton:hover {
+  background-color: #3e8e41;
+}

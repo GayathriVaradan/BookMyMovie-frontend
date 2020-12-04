@@ -1,40 +1,31 @@
 import React from "react";
-import styled from "styled-components";
 import { useNavigate } from "@reach/router";
+import "./Home.css";
+import { useTranslation } from "react-i18next";
 
-const Button = styled.button`
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border-radius: 3px;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  transition: 0.5s all ease-out;
-
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-`;
-export default function Home() {
+export default function Header() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
-    <div className="headerBackground">
-      <h1>Hello! Welcome to Book My Movie.</h1>
+    <div className="homepage">
+      <h1>{t("Hello! Welcome to Book My Movie.")}</h1>
       <div>
-        This is BookMyMovie a one stop location for all the latest movie in
-        stockholm.
+        {t(
+          "A one stop location for all the latest movie in playing in Stockholm."
+        )}
+        <br />
+        {t("Hope you have a wonderful time!!")}
       </div>
-      <Button
+      <br />
+      <button
+        className="commonButton"
         type="submit"
         onClick={() => {
           navigate("./landingPage");
         }}
       >
-        Browse the latest movies
-      </Button>
+        {t("Browse the latest movies")}
+      </button>
     </div>
   );
 }

@@ -1,0 +1,35 @@
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #d147a3;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+.footer-container {
+  padding: 25px 50px;
+}
+
+a.footer {
+  margin: 0 1rem;
+  transition: transform 250ms;
+  display: inline-block;
+}
+
+a.footer:hover {
+  transform: translateY(-2px);
+}
+
+a.facebook {
+  color: #4968ad;
+}
+
+a.twitter {
+  color: #49a1eb;
+}
+
+a.instagram {
+  color: #c13584;
+}

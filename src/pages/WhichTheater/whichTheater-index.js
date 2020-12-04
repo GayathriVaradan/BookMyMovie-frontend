@@ -1,32 +1,17 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable react/jsx-indent */
-/* eslint-disable no-debugger */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
 import { useNavigate } from "@reach/router";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+
 import AppContext from "../../store/context";
 import "./whichTheater-index.css";
 
-const Button = styled.button`
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border-radius: 3px;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  transition: 0.5s all ease-out;
-
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-`;
 function WhichTheater() {
+  const { t } = useTranslation();
   const [theatersForTheDate, setTheatersForTheDate] = useState([]);
   const { state, dispatch } = useContext(AppContext);
   const { selectedMovie, datesAndTheaters } = state;
@@ -49,6 +34,7 @@ function WhichTheater() {
       getTheaters();
     }
   }, [datesAndTheaters, dispatch, selectedMovie.title]);
+
   const loadDatesWithDays = () => {
     const weekday = new Array(7);
     weekday[0] = "Sunday";
@@ -69,7 +55,7 @@ function WhichTheater() {
         if (weekday[day] === test.date) {
           combinedDatesAndDay.push(`${dd}/${mm}/${y}  ${weekday[day]}`);
           setCombinedDatesAndDay(combinedDatesAndDay);
-          // console.log("combinedDatesAndDay : ", combinedDatesAndDay);
+          console.log("combinedDatesAndDay : ", combinedDatesAndDay);
         }
       }
       return combinedDatesAndDay;
@@ -91,17 +77,19 @@ function WhichTheater() {
     <div>
       <div>
         <label>
-          <h4>Movie : {selectedMovie.title}</h4>
+          <h4>
+            {t("Movie")} : {selectedMovie.title}
+          </h4>
         </label>
         <div>
-          <h4>Choose a Date:&nbsp;</h4>
+          <h4>{t("Choose a Date")}:&nbsp;</h4>
           <select
             value={datesAndTheaters.date}
             onChange={(e) => {
               selectDate(e);
             }}
           >
-            <option>--select Date--</option>
+            <option>--{t("select Date")}--</option>
             {datesAndTheaters.map((eachDate) => (
               <option value={eachDate.date} key={eachDate.date}>
                 {eachDate.date}
@@ -128,6 +116,7 @@ function WhichTheater() {
                         {eachTheater.shows.map((eachShow) => (
                           <tbody key={eachShow.time}>
                             <tr
+                              className="tableDataForTheater"
                               onClick={() => {
                                 dispatch({
                                   type: "setSelectedTheater",
@@ -151,7 +140,9 @@ function WhichTheater() {
                                 {eachShow.show}
                               </td>
                               <td className="tdForTheaterList">
-                                <Button
+                                <button
+                                  type="button"
+                                  className="commonButton"
                                   onClick={() => {
                                     dispatch({
                                       type: "setSelectedTheater",
@@ -169,8 +160,8 @@ function WhichTheater() {
                                     navigate("./noOfTickets");
                                   }}
                                 >
-                                  Buy Tickets
-                                </Button>
+                                  {t("Buy Tickets")}
+                                </button>
                               </td>
                             </tr>
                           </tbody>

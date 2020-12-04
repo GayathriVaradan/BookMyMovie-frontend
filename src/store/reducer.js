@@ -50,6 +50,31 @@ const reducer = (state, action) => {
         ...state,
         seatsUnavailableDetails: action.data,
       };
+    case "setFirstName":
+      return {
+        ...state,
+        firstName: action.data,
+      };
+    case "setLastName":
+      return {
+        ...state,
+        lastName: action.data,
+      };
+    case "setEmail":
+      return {
+        ...state,
+        email: action.data,
+      };
+    case "setPricePaid":
+      return {
+        ...state,
+        pricePaid: action.data,
+      };
+    case "setPaymentStatus":
+      return {
+        ...state,
+        paymentStatus: action.data,
+      };
     default:
       return state;
   }

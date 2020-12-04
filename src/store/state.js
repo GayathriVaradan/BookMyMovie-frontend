@@ -53,6 +53,11 @@ const state = {
   numberOfTickets: {},
   selectedSeats: [],
   dataForBackend: {},
+  firstName: {},
+  lastName: {},
+  email: {},
+  pricePaid: {},
+  paymentStatus: {},
 };
 
 export default state;

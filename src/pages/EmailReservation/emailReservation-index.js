@@ -2,18 +2,16 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
-import emailjs from "emailjs-com";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
-
+import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
 import "./emailReservation-index.css";
 
 function EmailReservation() {
-  // Declare a new state variable, which we'll call "count"
-  const { state, dispatch } = useContext(AppContext);
-  const price = 100;
+  const { t } = useTranslation();
   const [paymentStatus, setPaymentStatus] = useState();
+  const { state, dispatch } = useContext(AppContext);
   const {
     dataForBackend,
     selectedMovie,
@@ -21,8 +19,11 @@ function EmailReservation() {
     selectedTheater,
     selectedShow,
     selectedSeats,
+    numberOfTickets,
     seatsUnavailableDetails,
   } = state;
+  const price = 10000 * numberOfTickets;
+
   const navigate = useNavigate();
   const makePayment = async (token) => {
     try {
@@ -32,41 +33,36 @@ function EmailReservation() {
         selectedMovie,
       });
       setPaymentStatus(response.data.charge.status);
+      if (response.data.status === "success") {
+        setTimeout(() => {
+          dispatch({
+            type: "setPaymentStatus",
+            data: response.data.status,
+          });
+          dispatch({
+            type: "setPricePaid",
+            data: response.data.charge.amount / 10000,
+          });
+          navigate("./thankYou");
+        }, 2000);
+      } else {
+        alert("error");
+      }
       console.log("make payment", response);
     } catch (error) {
       console.log("make payment", error);
     }
   };
-  function sendEmail(e) {
-    e.preventDefault();
-    console.log("charge sendEmail: ", paymentStatus);
-
-    emailjs
-      .sendForm(
-        "Gmail",
-        "template_wv7v8lh",
-        e.target,
-        "user_HH6Ir5naHSoqnYDsO9PhW"
-      )
-      .then(
-        (result) => {
-          console.log(result.text, e.target);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-  }
 
   return (
     <div>
       <>
-        <form className="contact-form" onSubmit={sendEmail}>
+        <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
           <table className="emailtable">
             <tbody>
               <tr>
                 <th>
-                  <label htmlFor="movieTitle">Movie :</label>
+                  <label htmlFor="movieTitle">{t("Movie")} :</label>
                 </th>
                 <td>
                   <textarea
@@ -79,7 +75,7 @@ function EmailReservation() {
               </tr>
               <tr>
                 <th>
-                  <label htmlFor="selectedDate">Date :</label>
+                  <label htmlFor="selectedDate">{t("Date")} :</label>
                 </th>
                 <td>
                   <textarea
@@ -92,7 +88,7 @@ function EmailReservation() {
               </tr>
               <tr>
                 <th>
-                  <label htmlFor="selectedTheater"> Theater :</label>
+                  <label htmlFor="selectedTheater">{t("Theater")} :</label>
                 </th>
                 <td>
                   <textarea
@@ -105,7 +101,7 @@ function EmailReservation() {
               </tr>
               <tr>
                 <th>
-                  <label htmlFor="selectedShow">Show : </label>
+                  <label htmlFor="selectedShow">{t("Show")} : </label>
                 </th>
                 <td>
                   <textarea
@@ -119,7 +115,7 @@ function EmailReservation() {
 
               <tr>
                 <th>
-                  <label htmlFor="selectedSeats">Seats : </label>
+                  <label htmlFor="selectedSeats">{t("Selected seats")} :</label>
                 </th>
                 <td>
                   <textarea
@@ -131,21 +127,42 @@ function EmailReservation() {
                 </td>
               </tr>
               <tr>
-                <th>First Name</th>
+                <th>{t("First Name")}</th>
                 <td>
-                  <input name="first" type="text" placeholder="First Name" />
+                  <input
+                    name="first"
+                    type="text"
+                    placeholder="First Name"
+                    onChange={(e) => {
+                      dispatch({ type: "setFirstName", data: e.target.value });
+                    }}
+                  />
                 </td>
               </tr>
               <tr>
-                <th>Last Name</th>
+                <th>{t("Last Name")}</th>
                 <td>
-                  <input name="last" type="text" placeholder="Last Name" />
+                  <input
+                    name="last"
+                    type="text"
+                    placeholder="Last Name"
+                    onChange={(e) => {
+                      dispatch({ type: "setLastName", data: e.target.value });
+                    }}
+                  />
                 </td>
               </tr>
               <tr>
-                <th>Email</th>
+                <th>{t("Email")}</th>
                 <td>
-                  <input name="user_email" type="text" placeholder="Email" />
+                  <input
+                    name="user_email"
+                    type="text"
+                    placeholder="Email"
+                    onChange={(e) => {
+                      dispatch({ type: "setEmail", data: e.target.value });
+                    }}
+                  />
                 </td>
               </tr>
             </tbody>
@@ -158,12 +175,10 @@ function EmailReservation() {
             amount={price}
           >
             <button
+              className="commonButton"
               type="submit"
               value="Send"
               onClick={() => {
-                // if (paymentStatus === "succeeded") {
-                console.log("Pay button : ", paymentStatus);
-
                 selectedSeats.forEach((selectedSeat) => {
                   seatsUnavailableDetails.seatsUnavailable.push(selectedSeat);
                 });
@@ -178,13 +193,19 @@ function EmailReservation() {
                   seatsUnavailableDetails.seatsUnavailable
                 );
                 console.log(theaterUpdate);
-                navigate("./thankYou");
-                // }
               }}
             >
-              Pay
+              {t("Pay with Stripe")}
             </button>
           </StripeCheckout>
+          <div>
+            {t("Payment status")} :
+            <textarea
+              id="paymentStatus"
+              name="paymentStatus"
+              value={paymentStatus}
+            />
+          </div>
         </form>
       </>
     </div>

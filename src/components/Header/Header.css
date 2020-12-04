@@ -1,0 +1,9 @@
+.title {
+}
+.headerContent {
+  width: 100%;
+  background-color: #d147a3;
+  color: white;
+  flex-direction: row;
+  display: inline-flex;
+}

@@ -1,11 +1,13 @@
 .App {
   text-align: justify;
-  background-color:  #B0C4DE;
   padding: 25px;
-  font-family: 'Comic Sans MS';
-
 }
-
+body {
+  background-color: black;
+  font-family: "Comic Sans MS";
+  padding: 2%;
+  color: white;
+}
 
 .App-header {
   background-color: #282c34;

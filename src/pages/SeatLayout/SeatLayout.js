@@ -3,10 +3,12 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
+import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
 import "./SeatLayout.css";
 
 function SeatLayout() {
+  const { t } = useTranslation();
   const { state, dispatch } = useContext(AppContext);
   const [allSeatsSelected, setAllSeatsSelected] = useState(true);
   // eslint-disable-next-line no-unused-vars
@@ -59,12 +61,20 @@ function SeatLayout() {
   };
   return (
     <div>
-      <div> Movie : {selectedMovie.title}</div>
-      <div> Theater : {selectedTheater.theaterName}</div>
-      <div>Show: {selectedShow.show}</div>
-      <div> Number of tickets: {numberOfTickets}</div>
       <div>
-        Seats Unavailable:
+        {t("Movie")} : {selectedMovie.title}
+      </div>
+      <div>
+        {t("Theater")} : {selectedTheater.theaterName}
+      </div>
+      <div>
+        {t("Show")} : {selectedShow.show}
+      </div>
+      <div>
+        {t("Number of tickets selected")} : {numberOfTickets}
+      </div>
+      <div>
+        {t("Seats Unavailable")} :
         {seatsUnavailableDetails.seatsUnavailable.map((oneSeat) => (
           <> {oneSeat}</>
         ))}
@@ -74,7 +84,7 @@ function SeatLayout() {
           <tr>
             {firstRow.map((item) => (
               <>
-                <td key={item}>
+                <td key={item} className="tableData">
                   <label
                     className="seats"
                     onChange={(e) => {
@@ -98,7 +108,7 @@ function SeatLayout() {
           <tr>
             {secondRow.map((item) => (
               <>
-                <td key={item}>
+                <td key={item} className="tableData">
                   <label
                     className="seats"
                     onChange={(e) => {
@@ -122,7 +132,7 @@ function SeatLayout() {
           <tr>
             {thirdRow.map((item) => (
               <>
-                <td key={item}>
+                <td key={item} className="tableData">
                   <label
                     className="seats"
                     onChange={(e) => {
@@ -146,7 +156,7 @@ function SeatLayout() {
           <tr>
             {fourthRow.map((item) => (
               <>
-                <td key={item}>
+                <td key={item} className="tableData">
                   <label
                     className="seats"
                     onChange={(e) => {
@@ -170,7 +180,7 @@ function SeatLayout() {
           <tr>
             {fifthRow.map((item) => (
               <>
-                <td key={item}>
+                <td key={item} className="tableData">
                   <label
                     className="seats"
                     onChange={(e) => {
@@ -195,6 +205,7 @@ function SeatLayout() {
       </table>
       <button
         type="button"
+        className="commonButton"
         onClick={() => {
           sortedSeatsArray = sortedSeatsArray.sort((a, b) => {
             return a - b;
@@ -207,7 +218,7 @@ function SeatLayout() {
         }}
         disabled={allSeatsSelected}
       >
-        Continue
+        {t("Continue")}
       </button>
     </div>
   );
