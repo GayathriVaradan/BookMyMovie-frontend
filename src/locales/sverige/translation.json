@@ -21,9 +21,16 @@
     "Date":"Datum",
     "Selected seats":"Utvalda platser",
     "First Name": "Förnamn",
+    "Please enter a first name.":"Ange ett förnamn.",
     "Last Name":"Efternamn",
+    "Please enter a last name.":"Ange ett efternamn.",
     "Email":"E-post",
+    "Please enter an email Id.":"Ange ett e-post-id.",
+    "Please enter a valid email Id.":"Ange ett giltigt e-post-ID.",
     "Pay with Stripe":"Betala med Stripe",
     "Payment status":"Betalningsstatus",
-    "Thank you for booking the movie with us! Hope you enjoy the movie!!": "Tack för att du bokade filmen hos oss! Hoppas att du gillar filmen !!"
+    "Payment failed. Please try to book again.":"Betalning misslyckades. Försök att boka igen.",
+    "Thank you for booking the movie with us! Hope you enjoy the movie!!": "Tack för att du bokade filmen hos oss! Hoppas att du gillar filmen !!",
+    "Email has been sent to":"E-post har skickats till",
+    "Email could not be sent to":"E-post kunde inte skickas till"
 }

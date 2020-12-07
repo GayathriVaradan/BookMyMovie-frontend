@@ -1,21 +1,25 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
-import "./emailReservation-index.css";
+import "./index.css";
 
-function EmailReservation() {
+function Payment() {
   const { t } = useTranslation();
-  const [paymentStatus, setPaymentStatus] = useState();
+  const [paymentStatus, setPaymentStatus] = useState("not paid");
   const { state, dispatch } = useContext(AppContext);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [firstNameValidation, setFirstNameValidation] = useState(false);
+  const [lastNameValidation, setLastNameValidation] = useState(false);
+  const [emailValidation, setEmailValidation] = useState(false);
+  const [allOk, setAllOk] = useState(false);
   const {
     dataForBackend,
     selectedMovie,
-    selectedDate,
     selectedTheater,
     selectedShow,
     selectedSeats,
@@ -32,7 +36,7 @@ function EmailReservation() {
         price,
         selectedMovie,
       });
-      setPaymentStatus(response.data.charge.status);
+      setPaymentStatus(response.data.status);
       if (response.data.status === "success") {
         setTimeout(() => {
           dispatch({
@@ -43,101 +47,63 @@ function EmailReservation() {
             type: "setPricePaid",
             data: response.data.charge.amount / 10000,
           });
-          navigate("./thankYou");
+          navigate("./email");
         }, 2000);
       } else {
-        alert("error");
+        navigate("./paymentFail");
       }
-      console.log("make payment", response);
     } catch (error) {
-      console.log("make payment", error);
+      navigate("./paymentFail");
     }
+  };
+  const validateForm = () => {
+    if (!firstName) {
+      setFirstNameValidation(true);
+    }
+    if (!lastName) {
+      setLastNameValidation(true);
+    }
+    if (!emailId) {
+      setEmailValidation(true);
+    }
+    if (firstNameValidation && lastNameValidation && emailValidation) {
+      setAllOk(true);
+    }
+    return allOk;
   };
 
   return (
     <div>
       <>
-        <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+        <form
+          className="contact-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <table className="emailtable">
             <tbody>
-              <tr>
-                <th>
-                  <label htmlFor="movieTitle">{t("Movie")} :</label>
-                </th>
-                <td>
-                  <textarea
-                    id="movieTitle"
-                    name="movieTitle"
-                    value={selectedMovie.title}
-                    readOnly
-                  />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <label htmlFor="selectedDate">{t("Date")} :</label>
-                </th>
-                <td>
-                  <textarea
-                    id="selectedDate"
-                    name="selectedDate"
-                    value={selectedDate}
-                    readOnly
-                  />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <label htmlFor="selectedTheater">{t("Theater")} :</label>
-                </th>
-                <td>
-                  <textarea
-                    id="selectedTheater"
-                    name="selectedTheater"
-                    value={selectedTheater.theaterName}
-                    readOnly
-                  />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <label htmlFor="selectedShow">{t("Show")} : </label>
-                </th>
-                <td>
-                  <textarea
-                    id="selectedShow"
-                    name="selectedShow"
-                    value={selectedShow.show}
-                    readOnly
-                  />
-                </td>
-              </tr>
-
-              <tr>
-                <th>
-                  <label htmlFor="selectedSeats">{t("Selected seats")} :</label>
-                </th>
-                <td>
-                  <textarea
-                    id="selectedSeats"
-                    name="selectedSeats"
-                    value={selectedSeats}
-                    readOnly
-                  />
-                </td>
-              </tr>
               <tr>
                 <th>{t("First Name")}</th>
                 <td>
                   <input
                     name="first"
                     type="text"
+                    className="emailFormInputs"
                     placeholder="First Name"
                     onChange={(e) => {
+                      setFirstName(e.target.value);
                       dispatch({ type: "setFirstName", data: e.target.value });
                     }}
                   />
                 </td>
+              </tr>
+              <tr>
+                {firstNameValidation && (
+                  <label htmlFor="firstName" className="validation">
+                    {t("Please enter a first name.")}
+                  </label>
+                )}
               </tr>
               <tr>
                 <th>{t("Last Name")}</th>
@@ -145,12 +111,21 @@ function EmailReservation() {
                   <input
                     name="last"
                     type="text"
+                    className="emailFormInputs"
                     placeholder="Last Name"
                     onChange={(e) => {
+                      setLastName(e.target.value);
                       dispatch({ type: "setLastName", data: e.target.value });
                     }}
                   />
                 </td>
+              </tr>
+              <tr>
+                {lastNameValidation && (
+                  <label htmlFor="lastName" className="validation">
+                    {t("Please enter a last name.")}
+                  </label>
+                )}
               </tr>
               <tr>
                 <th>{t("Email")}</th>
@@ -158,12 +133,21 @@ function EmailReservation() {
                   <input
                     name="user_email"
                     type="text"
+                    className="emailFormInputs"
                     placeholder="Email"
                     onChange={(e) => {
+                      setEmailId(e.target.value);
                       dispatch({ type: "setEmail", data: e.target.value });
                     }}
                   />
                 </td>
+              </tr>
+              <tr>
+                {emailValidation && (
+                  <label htmlFor="emailId" className="validation">
+                    {t("Please enter an email Id.")}
+                  </label>
+                )}
               </tr>
             </tbody>
           </table>
@@ -173,11 +157,13 @@ function EmailReservation() {
             token={makePayment}
             name="Book the Movie"
             amount={price}
+            disable={validateForm}
           >
             <button
               className="commonButton"
               type="submit"
               value="Send"
+              disable={allOk}
               onClick={() => {
                 selectedSeats.forEach((selectedSeat) => {
                   seatsUnavailableDetails.seatsUnavailable.push(selectedSeat);
@@ -187,12 +173,12 @@ function EmailReservation() {
                   type: "setSeatsUnavailableDetails",
                   data: seatsUnavailableDetails,
                 });
-
-                const theaterUpdate = axios.patch(
-                  `http://localhost:5050/api/v1/seatsUnavailable/theater_id/${dataForBackend._id}/theaterName/${selectedTheater.theaterName}/show/${selectedShow.show}`,
-                  seatsUnavailableDetails.seatsUnavailable
-                );
-                console.log(theaterUpdate);
+                if (dataForBackend._id) {
+                  axios.patch(
+                    `http://localhost:5050/api/v1/seatsUnavailable/theater_id/${dataForBackend._id}/theaterName/${selectedTheater.theaterName}/show/${selectedShow.show}`,
+                    seatsUnavailableDetails.seatsUnavailable
+                  );
+                }
               }}
             >
               {t("Pay with Stripe")}
@@ -211,4 +197,4 @@ function EmailReservation() {
     </div>
   );
 }
-export default EmailReservation;
+export default Payment;

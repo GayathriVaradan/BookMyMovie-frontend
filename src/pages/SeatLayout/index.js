@@ -1,22 +1,17 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
-import "./SeatLayout.css";
+import "./index.css";
 
 function SeatLayout() {
   const { t } = useTranslation();
   const { state, dispatch } = useContext(AppContext);
   const [allSeatsSelected, setAllSeatsSelected] = useState(true);
-  // eslint-disable-next-line no-unused-vars
   const [seatSelectionAllowed, setSeatSelectionAllowed] = useState(false);
   // eslint-disable-next-line prefer-const
   let [sortedSeatsArray, setSortedSeatsArray] = useState([]);
   let available = true;
-  // const isItChecked = 0;
   const seatsArrayList = [];
   const firstRow = [1, 2, 3, 4, 5];
   const secondRow = [6, 7, 8, 9, 10];
@@ -30,7 +25,6 @@ function SeatLayout() {
     numberOfTickets,
     seatsUnavailableDetails,
   } = state;
-  // const [isTheSeatAvaiable, setIsTheSeatAvailable] = useState(true);
   const navigate = useNavigate();
 
   const isItAvailable = (value) => {
@@ -61,23 +55,25 @@ function SeatLayout() {
   };
   return (
     <div>
-      <div>
-        {t("Movie")} : {selectedMovie.title}
-      </div>
-      <div>
-        {t("Theater")} : {selectedTheater.theaterName}
-      </div>
-      <div>
-        {t("Show")} : {selectedShow.show}
-      </div>
-      <div>
-        {t("Number of tickets selected")} : {numberOfTickets}
-      </div>
-      <div>
-        {t("Seats Unavailable")} :
-        {seatsUnavailableDetails.seatsUnavailable.map((oneSeat) => (
-          <> {oneSeat}</>
-        ))}
+      <div className="ticketLayout">
+        <div>
+          {t("Movie")} : {selectedMovie.title}
+        </div>
+        <div>
+          {t("Theater")} : {selectedTheater.theaterName}
+        </div>
+        <div>
+          {t("Show")} : {selectedShow.show}
+        </div>
+        <div>
+          {t("Number of tickets selected")} : {numberOfTickets}
+        </div>
+        <div>
+          {t("Seats Unavailable")} :
+          {seatsUnavailableDetails.seatsUnavailable.map((oneSeat) => (
+            <> {oneSeat}</>
+          ))}
+        </div>
       </div>
       <table>
         <tbody>
@@ -86,6 +82,7 @@ function SeatLayout() {
               <>
                 <td key={item} className="tableData">
                   <label
+                    htmlFor="checkbox"
                     className="seats"
                     onChange={(e) => {
                       selectedCheckBox(item, e);
@@ -110,6 +107,7 @@ function SeatLayout() {
               <>
                 <td key={item} className="tableData">
                   <label
+                    htmlFor="checkbox"
                     className="seats"
                     onChange={(e) => {
                       selectedCheckBox(item, e);
@@ -134,6 +132,7 @@ function SeatLayout() {
               <>
                 <td key={item} className="tableData">
                   <label
+                    htmlFor="checkbox"
                     className="seats"
                     onChange={(e) => {
                       selectedCheckBox(item, e);
@@ -158,6 +157,7 @@ function SeatLayout() {
               <>
                 <td key={item} className="tableData">
                   <label
+                    htmlFor="checkbox"
                     className="seats"
                     onChange={(e) => {
                       selectedCheckBox(item, e);
@@ -182,6 +182,7 @@ function SeatLayout() {
               <>
                 <td key={item} className="tableData">
                   <label
+                    htmlFor="checkbox"
                     className="seats"
                     onChange={(e) => {
                       selectedCheckBox(item, e);
@@ -214,7 +215,7 @@ function SeatLayout() {
             type: "setSelectedSeats",
             data: sortedSeatsArray,
           });
-          navigate("./emailReservation");
+          navigate("./payment");
         }}
         disabled={allSeatsSelected}
       >

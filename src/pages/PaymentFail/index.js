@@ -1,21 +1,14 @@
 import React from "react";
 import { useNavigate } from "@reach/router";
-import "./Home.css";
+import "./index.css";
 import { useTranslation } from "react-i18next";
 
-export default function Header() {
+export default function PaymentFail() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <div className="homepage">
-      <h1>{t("Hello! Welcome to Book My Movie.")}</h1>
-      <div>
-        {t(
-          "A one stop location for all the latest movie in playing in Stockholm."
-        )}
-        <br />
-        {t("Hope you have a wonderful time!!")}
-      </div>
+      <h1>{t("Payment failed. Please try to book again.")}</h1>
       <br />
       <button
         className="commonButton"

@@ -21,9 +21,16 @@
     "Date": "தேதி",
     "Selected seats":"தேர்ந்தெடுக்கப்பட்ட இடங்கள்",
     "First Name":"முதல் பெயர்",
+    "Please enter a first name.":"முதல் பெயரை உள்ளிடவும்.",
     "Last Name":"கடைசி பெயர்",
+    "Please enter a last name.":"கடைசி பெயரை உள்ளிடவும்.",
     "Email":"மின்னஞ்சல்",
+    "Please enter an email Id.":"மின்னஞ்சல் ஐடியை உள்ளிடவும்.",
+    "Please enter a valid email Id.":"செல்லுபடியாகும் மின்னஞ்சல் ஐடியை உள்ளிடவும்.",
     "Pay with Stripe":"ஸ்ட்ரிப்பினால் பணம் செலுத்துங்கள்",
     "Payment status": "கட்டண நிலை",
-    "Thank you for booking the movie with us! Hope you enjoy the movie!!":"எங்களுடன் படம் முன்பதிவு செய்ததற்கு நன்றி! நீங்கள் திரைப்படத்தை ரசிப்பீர்கள் என்று நம்புகிறேன் !!"
+    "Payment failed. Please try to book again.":"கட்டணம் தோல்வியடைந்தது. மீண்டும் முன்பதிவு செய்ய முயற்சிக்கவும்.",
+    "Thank you for booking the movie with us! Hope you enjoy the movie!!":"எங்களுடன் படம் முன்பதிவு செய்ததற்கு நன்றி! நீங்கள் திரைப்படத்தை ரசிப்பீர்கள் என்று நம்புகிறேன் !!",
+    "Email has been sent to":"மின்னஞ்சல் அனுப்பப்பட்டுள்ளது",
+    "Email could not be sent to":"மின்னஞ்சல் அனுப்ப முடியவில்லை"
 }

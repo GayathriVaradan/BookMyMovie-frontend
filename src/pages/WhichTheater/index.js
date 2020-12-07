@@ -1,14 +1,9 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable react/jsx-indent */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "@reach/router";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-
 import AppContext from "../../store/context";
-import "./whichTheater-index.css";
+import "./index.css";
 
 function WhichTheater() {
   const { t } = useTranslation();
@@ -16,7 +11,6 @@ function WhichTheater() {
   const { state, dispatch } = useContext(AppContext);
   const { selectedMovie, datesAndTheaters } = state;
   const [showOptions, setShowOptions] = useState(false);
-  // const [showTimings, setShowTimings] = useState(-1);
   const [combinedDatesAndDay, setCombinedDatesAndDay] = useState([]);
   const navigate = useNavigate();
 
@@ -76,11 +70,13 @@ function WhichTheater() {
   return (
     <div>
       <div>
-        <label>
-          <h4>
-            {t("Movie")} : {selectedMovie.title}
-          </h4>
-        </label>
+        <div className="ticketLayout">
+          <label htmlFor="movie">
+            <h4>
+              {t("Movie")} : {selectedMovie.title}
+            </h4>
+          </label>
+        </div>
         <div>
           <h4>{t("Choose a Date")}:&nbsp;</h4>
           <select
@@ -175,19 +171,6 @@ function WhichTheater() {
           )}
         </div>
       </div>
-
-      {/* {theaters.map((eachTheater, index) => (
-          <div>
-            <Button
-              key={eachTheater._id}
-              value={eachTheater.theaterNames}
-              onClick={() => setShowOptions(index)}
-            >
-              {eachTheater.theaterNames}
-            </Button>
-            {showOptions === index && <WhichShow options={eachTheater} />}
-          </div>
-        ))} */}
     </div>
   );
 }

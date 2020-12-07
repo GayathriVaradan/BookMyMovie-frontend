@@ -1,20 +1,21 @@
-table {
-  border-collapse: collapse;
+.carousel .thumb img {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.carousel .slide img {
+  max-height: 300px; /* change this to whatever you want */
+  width: auto;
+}
+.carousel {
   width: 100%;
 }
-th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  color: #d147a3;
+.legend {
+  cursor: pointer;
+  font-size: 16px;
 }
-td {
-  padding: 8px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-input[type="text"] {
-  width: 100%;
+.search {
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -22,13 +23,8 @@ input[type="text"] {
   border-radius: 4px;
   box-sizing: border-box;
 }
-.emailtable {
-  border-radius: 5px;
-  background-color: rgb(46, 114, 105);
-  padding: 20px;
-}
-tr:hover {
-  background-color: #f5f5f5;
+.search:focus {
+  background-color: pink;
 }
 .commonButton {
   background-color: #4caf50; /* Green */
@@ -45,4 +41,7 @@ tr:hover {
 }
 .commonButton:hover {
   background-color: #3e8e41;
+}
+.errorMessage {
+  color: #d8000c;
 }

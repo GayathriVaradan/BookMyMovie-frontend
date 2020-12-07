@@ -1,11 +1,9 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "@reach/router";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
-
-import "./noOfTickets-index.css";
+import "./index.css";
 
 function NoOfTickets() {
   const { t } = useTranslation();
@@ -64,15 +62,15 @@ function NoOfTickets() {
     return false;
   };
   return (
-    <div>
+    <div className="ticketButtons">
       <div>
         {t("Number Of tickets")} :
-        <button className="commonButton" type="button" onClick={decrement}>
+        <button className="plusMinusButtons" type="button" onClick={decrement}>
           -
         </button>
         {count}
         <button
-          className="commonButton"
+          className="plusMinusButtons"
           type="button"
           onClick={increment}
           disabled={block(count)}
@@ -80,15 +78,20 @@ function NoOfTickets() {
           +
         </button>
       </div>
-      <div>
-        {t("Movie")} : {selectedMovie.title}
+      <br />
+
+      <div className="ticketLayout">
+        <div>
+          {t("Movie")} : {selectedMovie.title}
+        </div>
+        <div>
+          {t("Theater")} : {selectedTheater.theaterName}
+        </div>
+        <div>
+          {t("Show")} : {selectedShow.show}
+        </div>
       </div>
-      <div>
-        {t("Theater")} : {selectedTheater.theaterName}
-      </div>
-      <div>
-        {t("Show")} : {selectedShow.show}
-      </div>
+      <br />
       <button
         type="button"
         className="commonButton"

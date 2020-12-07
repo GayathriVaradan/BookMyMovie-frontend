@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import "./Header.css";
+import "./index.css";
 
 export default function Header() {
   const { t } = useTranslation();
@@ -8,11 +8,13 @@ export default function Header() {
 
   return (
     <div className="headerContent">
-      <h1>Book My Movie.</h1>
-      <div>
+      <div className="movieTitle">
+        <h1>Book My Movie</h1>
+      </div>
+      <div className="languages">
         {t("Select Language:")}
         <button
-          className="language-btn"
+          className="commonButton"
           type="button"
           value="tl"
           onClick={() => {
@@ -20,10 +22,9 @@ export default function Header() {
           }}
         >
           Tamil
-          {/* <img src="india.png" alt="Hindi" /> */}
         </button>
         <button
-          className="language-btn"
+          className="commonButton"
           type="button"
           value="sv"
           onClick={() => {
@@ -31,7 +32,6 @@ export default function Header() {
           }}
         >
           Swedish
-          {/* <img src="sweden.png" alt="Swedish" /> */}
         </button>
       </div>
     </div>

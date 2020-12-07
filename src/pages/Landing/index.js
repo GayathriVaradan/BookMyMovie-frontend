@@ -1,14 +1,11 @@
-/* eslint-disable no-alert */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
-import "./landing-index-style.css";
+import "./index.css";
 
 const LandingPage = () => {
   const { t } = useTranslation();
@@ -40,6 +37,7 @@ const LandingPage = () => {
         onChange={(e) => setName(e.target.value)}
         type="text"
         value={movieName}
+        className="search"
         placeholder={t("Search for a Movie")}
       />
       {showErrorMsg && (
@@ -90,26 +88,17 @@ const LandingPage = () => {
       >
         {movies.map((eachMovie) => (
           <div key={eachMovie}>
-            <button
-              type="button"
-              label="button"
-              className="commonButton"
-              value={eachMovie._id}
+            <img alt="" src={eachMovie.posterurl} />
+            <p
+              className="legend"
               onClick={() => {
                 dispatch({ type: "setSelectedMovie", data: eachMovie });
                 navigate("./selectedMovie");
               }}
+              aria-hidden
             >
               {eachMovie.title}
-            </button>
-            <img
-              alt=""
-              src={eachMovie.posterurl}
-              onClick={() => {
-                dispatch({ type: "setSelectedMovie", data: eachMovie });
-                navigate("./selectedMovie");
-              }}
-            />
+            </p>
           </div>
         ))}
       </Carousel>

@@ -1,9 +1,8 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useContext } from "react";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
-import "./selectedMovie-index.css";
+import "./index.css";
 
 function SelectedMovie() {
   const { t } = useTranslation();
@@ -25,7 +24,7 @@ function SelectedMovie() {
       </button>
       <img alt="" src={selectedMovie.poster} />
 
-      <p>Genre : {selectedMovie.title}</p>
+      <p>Title : {selectedMovie.title}</p>
       <p>Year: {selectedMovie.year}</p>
       <p>
         Genre :
@@ -39,11 +38,11 @@ function SelectedMovie() {
       <p>imdb Rating : {selectedMovie.imdbRating}</p>
       <p>
         Actors:
-        <p>
+        <div>
           {selectedMovie.actors.map((actor) => (
             <p key={actor}>{actor}</p>
           ))}
-        </p>
+        </div>
       </p>
     </div>
   );
