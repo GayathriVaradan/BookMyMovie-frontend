@@ -22,10 +22,13 @@ function Email() {
     pricePaid,
   } = state;
   const formData = () => {
-    if (firstName && lastName && email) {
-      return false;
+    if (
+      Object.keys(firstName).length === 0 &&
+      Object.keys(email).length === 0
+    ) {
+      return true;
     }
-    return true;
+    return false;
   };
   function sendEmail(e) {
     e.preventDefault();
