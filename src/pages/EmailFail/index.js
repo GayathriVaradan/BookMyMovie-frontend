@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
+import AppContext from "../../store/context";
 
-export default function PaymentFail() {
+export default function EmailFail() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { state } = useContext(AppContext);
+  const { email } = state;
   return (
     <div className="homepage">
-      <h1>{t("Payment failed. Please try to book again.")}</h1>
+      <h1>
+        {t("Email could not be sent to")} {email}
+      </h1>
       <br />
       <button
         className="commonButton"

@@ -4,6 +4,7 @@ const state = {
       _id: "",
       theaterNames: "",
       title: "",
+      trailer: "",
       year: "",
       genre: [],
       theaters: [],

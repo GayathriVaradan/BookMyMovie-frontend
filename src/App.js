@@ -15,6 +15,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Email from "./pages/Email";
 import PaymentFail from "./pages/PaymentFail";
+import EmailFail from "./pages/EmailFail";
+import "./commonStyle/commonStyle.css";
 
 function App() {
   const [state, dispatch] = useReducer(store.reducer, store.initialState);
@@ -34,6 +36,7 @@ function App() {
             <PaymentFail path="/paymentFail" />
             <Email path="/email" />
             <ThankYou path="/thankYou" />
+            <EmailFail path="/emailFail" />
           </Router>
         </AppContext.Provider>
         <Footer />

@@ -77,7 +77,7 @@ function WhichTheater() {
             </h4>
           </label>
         </div>
-        <div>
+        <div className="dateDropdown">
           <h4>{t("Choose a Date")}:&nbsp;</h4>
           <select
             value={datesAndTheaters.date}

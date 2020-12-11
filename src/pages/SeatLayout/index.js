@@ -54,7 +54,7 @@ function SeatLayout() {
     }
   };
   return (
-    <div>
+    <div className="seatLayout">
       <div className="ticketLayout">
         <div>
           {t("Movie")} : {selectedMovie.title}

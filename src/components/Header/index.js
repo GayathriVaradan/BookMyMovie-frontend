@@ -7,10 +7,8 @@ export default function Header() {
   const { i18n } = useTranslation();
 
   return (
-    <div className="headerContent">
-      <div className="movieTitle">
-        <h1>Book My Movie</h1>
-      </div>
+    <div data-testid="headerTest" className="headerContent">
+      <div className="movieTitle">Book My Movie</div>
       <div className="languages">
         {t("Select Language:")}
         <button

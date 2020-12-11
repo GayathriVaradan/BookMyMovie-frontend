@@ -9,8 +9,6 @@ function Email() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { state } = useContext(AppContext);
-  // const { emailSent, setEmailSent } = useState("");
-  // const { emailNotSent, setEmailNotSent } = useState("");
 
   const {
     selectedMovie,
@@ -23,6 +21,12 @@ function Email() {
     email,
     pricePaid,
   } = state;
+  const formData = () => {
+    if (firstName && lastName && email) {
+      return false;
+    }
+    return true;
+  };
   function sendEmail(e) {
     e.preventDefault();
     emailjs
@@ -38,6 +42,7 @@ function Email() {
           console.log(result);
         },
         (error) => {
+          navigate("./emailFail");
           console.log(error.text);
         }
       );
@@ -123,7 +128,6 @@ function Email() {
                   value={firstName}
                   readOnly
                 />
-                {/* <input name="first" type="text" placeholder="First Name" /> */}
               </td>
             </tr>
             <tr>
@@ -136,7 +140,6 @@ function Email() {
                   value={lastName}
                   readOnly
                 />
-                {/* <input name="last" type="text" placeholder="Last Name" /> */}
               </td>
             </tr>
             <tr>
@@ -149,7 +152,6 @@ function Email() {
                   value={email}
                   readOnly
                 />
-                {/* <input name="user_email" type="text" placeholder="Email" /> */}
               </td>
             </tr>
             <tr>
@@ -166,29 +168,10 @@ function Email() {
             </tr>
           </tbody>
         </table>
-        <button className="commonButton" type="submit">
+        <button className="commonButton" type="submit" disabled={formData()}>
           Send Email
         </button>
       </form>
-      {/* {emailSent && (
-        <div>
-          {t("Email has been sent to")} {email}
-        </div>
-      )}
-      {emailNotSent && (
-        <div>
-          {t("Email could not be sent to")} {email}
-        </div>
-      )} */}
-      <button
-        type="button"
-        className="commonButton"
-        onClick={() => {
-          navigate("./");
-        }}
-      >
-        Book My Movie
-      </button>
     </div>
   );
 }

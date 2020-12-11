@@ -4,6 +4,7 @@ footer {
   bottom: 0;
   width: 100%;
   background-color: #d147a3;
+  background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
   color: white;
   text-align: center;
   padding: 15px;

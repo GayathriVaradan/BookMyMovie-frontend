@@ -153,7 +153,7 @@ function Payment() {
           </table>
 
           <StripeCheckout
-            stripeKey="pk_test_51HmbeNKaGaw448OOF6cpgckz29IJwEZoZRVZTsaD97tC1quYXeML6dd3auAjpO4wWEg1VDLlpiU3CxKSM2vjiM5z00Vuf0aY6t"
+            stripeKey={process.env.REACT_APP_KEY}
             token={makePayment}
             name="Book the Movie"
             amount={price}

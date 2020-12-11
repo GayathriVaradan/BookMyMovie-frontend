@@ -21,7 +21,7 @@ function ThankYou() {
   } = state;
 
   return (
-    <div>
+    <div className="thankYou">
       {t("Thank you for booking the movie with us! Hope you enjoy the movie!!")}
       <br />
       <div className="ticketLayout">
@@ -53,6 +53,7 @@ function ThankYou() {
           {t("Price Paid")} : {pricePaid}
         </div>
       </div>
+      {t("To browse the latest movies checkout the website!!")}
       <button
         type="button"
         className="commonButton"
