@@ -22,7 +22,9 @@ const LandingPage = () => {
 
   useEffect(() => {
     async function getMovies() {
-      const response = await axios.get("http://localhost:5050/api/v1/movies");
+      const response = await axios.get(
+        "https://bookmymovie-backend.herokuapp.com/api/v1/movies"
+      );
       const moviesData = await response.data;
       if (moviesData) {
         dispatch({ type: "setMoviesList", data: moviesData });
@@ -59,7 +61,7 @@ const LandingPage = () => {
         onClick={() => {
           if (movieName) {
             const searchedMovie = axios.get(
-              `http://localhost:5050/api/v1/movies/title/${movieName}`
+              `https://bookmymovie-backend.herokuapp.com/api/v1/movies/title/${movieName}`
             );
             movies.map((eachMovie) => {
               if (eachMovie.title === movieName) {

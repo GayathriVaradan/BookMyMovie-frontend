@@ -31,11 +31,14 @@ function Payment() {
   const navigate = useNavigate();
   const makePayment = async (token) => {
     try {
-      const response = await axios.post("http://localhost:5050/payment", {
-        token,
-        price,
-        selectedMovie,
-      });
+      const response = await axios.post(
+        "https://bookmymovie-backend.herokuapp.com/payment",
+        {
+          token,
+          price,
+          selectedMovie,
+        }
+      );
       setPaymentStatus(response.data.status);
       if (response.data.status === "success") {
         setTimeout(() => {
@@ -175,7 +178,7 @@ function Payment() {
                 });
                 if (dataForBackend._id) {
                   axios.patch(
-                    `http://localhost:5050/api/v1/seatsUnavailable/theater_id/${dataForBackend._id}/theaterName/${selectedTheater.theaterName}/show/${selectedShow.show}`,
+                    `https://bookmymovie-backend.herokuapp.com/api/v1/seatsUnavailable/theater_id/${dataForBackend._id}/theaterName/${selectedTheater.theaterName}/show/${selectedShow.show}`,
                     seatsUnavailableDetails.seatsUnavailable
                   );
                 }

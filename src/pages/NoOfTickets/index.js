@@ -20,7 +20,7 @@ function NoOfTickets() {
   useEffect(() => {
     async function getSeatsUnavailableDetails() {
       const response = await axios.get(
-        `http://localhost:5050/api/v1/seatsUnavailable/theater_id/${dataForBackend._id}/theaterName/${selectedTheater.theaterName}/show/${selectedShow.show}`
+        `https://bookmymovie-backend.herokuapp.com/api/v1/seatsUnavailable/theater_id/${dataForBackend._id}/theaterName/${selectedTheater.theaterName}/show/${selectedShow.show}`
       );
       const seatsUnavailableDetailsData = await response.data;
       if (seatsUnavailableDetailsData) {

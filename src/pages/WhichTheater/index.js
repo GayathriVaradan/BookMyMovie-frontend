@@ -18,7 +18,7 @@ function WhichTheater() {
     if (datesAndTheaters.length > 0) {
       const getTheaters = async () => {
         const response = await axios.get(
-          `http://localhost:5050/api/v1/theaters/${selectedMovie.title}`
+          `https://bookmymovie-backend.herokuapp.com/api/v1/theaters/${selectedMovie.title}`
         );
         const datesAndTheatersData = await response.data;
         if (datesAndTheatersData) {
