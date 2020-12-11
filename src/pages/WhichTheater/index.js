@@ -49,7 +49,6 @@ function WhichTheater() {
         if (weekday[day] === test.date) {
           combinedDatesAndDay.push(`${dd}/${mm}/${y}  ${weekday[day]}`);
           setCombinedDatesAndDay(combinedDatesAndDay);
-          console.log("combinedDatesAndDay : ", combinedDatesAndDay);
         }
       }
       return combinedDatesAndDay;

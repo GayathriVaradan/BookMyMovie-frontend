@@ -41,12 +41,10 @@ function Email() {
       )
       .then(
         (result) => {
-          navigate("./thankYou");
-          console.log(result);
+          if (result.text === "OK") navigate("./thankYou");
         },
         (error) => {
-          navigate("./emailFail");
-          console.log(error.text);
+          if (error.text) navigate("./emailFail");
         }
       );
   }
