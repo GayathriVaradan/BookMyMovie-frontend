@@ -156,7 +156,7 @@ function Email() {
               </td>
             </tr>
             <tr>
-              <th>Amount Paid</th>
+              <th>{t("Amount Paid")}</th>
               <td>
                 <textarea
                   name="pricePaid"

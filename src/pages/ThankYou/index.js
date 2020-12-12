@@ -50,7 +50,7 @@ function ThankYou() {
           {t("Email")} : {email}
         </div>
         <div name="pricePaid">
-          {t("Price Paid")} : {pricePaid}
+          {t("Amount Paid")} : {pricePaid}
         </div>
       </div>
       {t("To browse the latest movies checkout the website!!")}

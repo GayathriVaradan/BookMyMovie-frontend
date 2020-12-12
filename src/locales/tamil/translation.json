@@ -25,6 +25,7 @@
     "Last Name":"கடைசி பெயர்",
     "Please enter a last name.":"கடைசி பெயரை உள்ளிடவும்.",
     "Email":"மின்னஞ்சல்",
+    "Amount Paid":"பணம் செலுத்தப்பட்டது",
     "Please enter an email Id.":"மின்னஞ்சல் ஐடியை உள்ளிடவும்.",
     "Please enter a valid email Id.":"செல்லுபடியாகும் மின்னஞ்சல் ஐடியை உள்ளிடவும்.",
     "Pay with Stripe":"ஸ்ட்ரிப்பினால் பணம் செலுத்துங்கள்",

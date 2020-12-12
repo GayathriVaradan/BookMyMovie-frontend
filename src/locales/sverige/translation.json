@@ -25,6 +25,7 @@
     "Last Name":"Efternamn",
     "Please enter a last name.":"Ange ett efternamn.",
     "Email":"E-post",
+    "Amount Paid":"Betalt belopp",
     "Please enter an email Id.":"Ange ett e-post-id.",
     "Please enter a valid email Id.":"Ange ett giltigt e-post-ID.",
     "Pay with Stripe":"Betala med Stripe",
