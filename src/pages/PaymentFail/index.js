@@ -13,7 +13,7 @@ export default function PaymentFail() {
         className="commonButton"
         type="submit"
         onClick={() => {
-          navigate("./landingPage");
+          navigate("./allMovies");
         }}
       >
         {t("Browse the latest movies")}

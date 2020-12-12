@@ -70,11 +70,6 @@ const reducer = (state, action) => {
         ...state,
         pricePaid: action.data,
       };
-    case "setPaymentStatus":
-      return {
-        ...state,
-        paymentStatus: action.data,
-      };
     default:
       return state;
   }

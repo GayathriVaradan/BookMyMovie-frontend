@@ -58,7 +58,6 @@ const state = {
   lastName: {},
   email: {},
   pricePaid: {},
-  paymentStatus: {},
 };
 
 export default state;

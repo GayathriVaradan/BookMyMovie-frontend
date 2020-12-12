@@ -27,7 +27,7 @@ function App() {
         <AppContext.Provider value={{ state, dispatch }}>
           <Router>
             <Home path="/" />
-            <LandingPage path="/landingPage" />
+            <LandingPage path="/allMovies" />
             <SelectedMovie path="/selectedMovie" />
             <WhichTheater path="/whichTheater" />
             <NoOfTickets path="/noOfTickets" />

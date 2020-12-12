@@ -21,7 +21,7 @@ export default function Header() {
         className="commonButton"
         type="submit"
         onClick={() => {
-          navigate("./landingPage");
+          navigate("./allMovies");
         }}
       >
         {t("Browse the latest movies")}

@@ -8,7 +8,6 @@ import "./index.css";
 
 function Payment() {
   const { t } = useTranslation();
-  const [paymentStatus, setPaymentStatus] = useState("not paid");
   const { state, dispatch } = useContext(AppContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -26,7 +25,7 @@ function Payment() {
     numberOfTickets,
     seatsUnavailableDetails,
   } = state;
-  const price = 10000 * numberOfTickets;
+  const price = 1000 * numberOfTickets;
 
   const navigate = useNavigate();
   const makePayment = async (token) => {
@@ -39,19 +38,12 @@ function Payment() {
           selectedMovie,
         }
       );
-      setPaymentStatus(response.data.status);
       if (response.data.status === "success") {
-        setTimeout(() => {
-          dispatch({
-            type: "setPaymentStatus",
-            data: response.data.status,
-          });
-          dispatch({
-            type: "setPricePaid",
-            data: response.data.charge.amount / 10000,
-          });
-          navigate("./email");
-        }, 2000);
+        dispatch({
+          type: "setPricePaid",
+          data: response.data.charge.amount / 10000,
+        });
+        navigate("./email");
       } else {
         navigate("./paymentFail");
       }
@@ -187,14 +179,6 @@ function Payment() {
               {t("Pay with Stripe")}
             </button>
           </StripeCheckout>
-          <div>
-            {t("Payment status")} :
-            <textarea
-              id="paymentStatus"
-              name="paymentStatus"
-              value={paymentStatus}
-            />
-          </div>
         </form>
       </>
     </div>

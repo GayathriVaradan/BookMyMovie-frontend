@@ -19,7 +19,6 @@ i18n
     lng: "sv",
 
     keySeparator: false,
-    debug: true,
     interpolation: {
       escapeValue: false,
     },
