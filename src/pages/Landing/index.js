@@ -31,7 +31,7 @@ const LandingPage = () => {
       }
     }
     getMovies();
-  }, [movies, dispatch]);
+  }, [dispatch]);
 
   return (
     <div>
